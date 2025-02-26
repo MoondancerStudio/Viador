@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0851ab2a0c3527d43950429f87b45e51, type: 3}
+  m_Name: Dracon
+  m_EditorClassIdentifier: 
+  name: Dracon
+  icon: {fileID: -712631045867808456, guid: 1edf64a24a4ba994bb8a3b22e161019a, type: 3}
+  image: {fileID: 0}
+  description: "A toroni gladi\xE1torok legnehezebb fegyverzet\xFB t\xEDpus\xE1nak
+    neve Dracon, azaz \u201ES\xE1rk\xE1ny\u201D, egy\xE9rtelm\xFB c\xE9lz\xE1sk\xE9nt
+    az \xF3id\xF4k roppant besti\xE1it ut\xE1nz\xF3 sebezhetetlens\xE9g\xFCkre \xE9s
+    tit\xE1ni erej\xFCkre. A neh\xE9z p\xE1nc\xE9lokba \xF6lt\xF6z\xF6tt S\xE1rk\xE1nyok
+    pajzsait vagy k\xE9tkezes fegyvereit val\xF3ban csak a leger\xF4sebb viadorok
+    k\xE9pesek forgatni \u2013 de keser\xFBen csal\xF3dik az, aki \xFAgy v\xE9li,
+    nem t\xF6bbek brut\xE1lis, ac\xE9lba csomagolt kolosszusokn\xE1l."
+  move: 4
+  attack: 43
+  defense: 36
+  health: 4
+  armor: 2
+  armorStructure: 04000000040000000400000004000000
