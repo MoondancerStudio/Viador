@@ -172,6 +172,12 @@ MonoBehaviour:
   highlightTile: {fileID: 11400000, guid: b807e213081114741a6fd20f0cde8d61, type: 2}
   highlightTilemap: {fileID: 1594240293}
   tilemap: {fileID: 0}
+  moveRadius: 4
+  colors:
+  - {r: 0, g: 1, b: 0, a: 0.5019608}
+  - {r: 1, g: 1, b: 0, a: 0.5019608}
+  - {r: 1, g: 0.5019608, b: 0, a: 0.5019608}
+  - {r: 1, g: 0, b: 0, a: 0.5019608}
 --- !u!19719996 &398852873
 TilemapCollider2D:
   m_ObjectHideFlags: 0

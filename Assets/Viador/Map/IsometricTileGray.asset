@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IsometricTileGray
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 3625043607559282579, guid: 78d62f177d93e384ea9dee1707d3a9bd, type: 3}
-  m_Color: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   m_Transform:
     e00: 1
     e01: 0

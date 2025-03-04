@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,6 +13,10 @@ namespace Viador.Map
         public Tile highlightTile;
         public Tilemap highlightTilemap;
         public Tilemap tilemap;
+
+        public int moveRadius = 1;
+
+        public List<Color> colors;
     
         private bool _isSet = false;
 
@@ -22,7 +28,6 @@ namespace Viador.Map
         void Update()
         {
             if (!_isSet) {
-                Debug.Log("Setting move highlight");
                 Vector3Int charTilePos = grid.WorldToCell(characterObject.transform.position);
                 
                 SetPerimeterTiles(charTilePos, highlightTile);
@@ -55,21 +60,56 @@ namespace Viador.Map
         
         private void SetPerimeterTiles(Vector3Int charTilePos, Tile tile)
         {
-            SetTile(charTilePos + Vector3Int.up, tile);
-            SetTile(charTilePos + Vector3Int.up + Vector3Int.left, tile);
-            SetTile(charTilePos + Vector3Int.up + Vector3Int.right, tile);
-            SetTile(charTilePos + Vector3Int.left, tile);
-            SetTile(charTilePos + Vector3Int.right, tile);
-            SetTile(charTilePos + Vector3Int.down, tile);
-            SetTile(charTilePos + Vector3Int.down + Vector3Int.left, tile);
-            SetTile(charTilePos + Vector3Int.down + Vector3Int.right, tile);
+            // SetTile(charTilePos + Vector3Int.up, tile);
+            // SetTile(charTilePos + Vector3Int.up + Vector3Int.left, tile);
+            // SetTile(charTilePos + Vector3Int.up + Vector3Int.right, tile);
+            // SetTile(charTilePos + Vector3Int.left, tile);
+            // SetTile(charTilePos + Vector3Int.right, tile);
+            // SetTile(charTilePos + Vector3Int.down, tile);
+            // SetTile(charTilePos + Vector3Int.down + Vector3Int.left, tile);
+            // SetTile(charTilePos + Vector3Int.down + Vector3Int.right, tile);
+            
+            IteratePerimeterTiles(charTilePos, tile, moveRadius, moveRadius);
+        }
+
+        private void IteratePerimeterTiles(Vector3Int charTilePos, Tile tile, int x, int y)
+        {
+            for (int i = 1; i <= y; i++)
+            {
+                Tile usedTile = null;
+                if (tile is not null)
+                {
+                    usedTile = Instantiate(tile);
+                    usedTile.color = colors[i - 1];
+                }
+                
+                SetTile(charTilePos + i * Vector3Int.up, usedTile);
+                SetTile(charTilePos + i * Vector3Int.down, usedTile);
+                SetTile(charTilePos + i * Vector3Int.right, usedTile);
+                SetTile(charTilePos + i * Vector3Int.left, usedTile);
+                
+                for (int j = 1; j <= x; j++)
+                {
+                    if (tile is not null)
+                    {
+                        usedTile.color = colors[Math.Max(i, j) - 1];
+                    }
+                    
+                    SetTile(charTilePos + i * Vector3Int.up + j * Vector3Int.right, usedTile);
+                    SetTile(charTilePos + i * Vector3Int.up + j * Vector3Int.left, usedTile);
+                    
+                    SetTile(charTilePos + i * Vector3Int.down + j * Vector3Int.right, usedTile);
+                    SetTile(charTilePos + i * Vector3Int.down + j * Vector3Int.left, usedTile);
+                }
+                
+                
+            }
         }
 
         private void SetTile(Vector3Int tileCoordinate, Tile tile)
         {
-            if (tilemap.GetTile(tileCoordinate) != null)
+            if (tilemap.GetTile(tileCoordinate) is not null)
             {
-                Debug.Log(tileCoordinate);
                 highlightTilemap.SetTile(tileCoordinate, tile);
             }
         }
