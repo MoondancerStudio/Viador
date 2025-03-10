@@ -25,7 +25,7 @@ namespace Viador.Character
 
         void Start()
         {
-            Debug.Log("Character: Start");
+            //Debug.Log("Character: Start");
             HighlightMoveOptions(gameObject.transform.position);
         }
 
@@ -55,7 +55,7 @@ namespace Viador.Character
 
         private void Move(Vector3 targetPosition)
         {
-            Debug.Log($"GridController: {_gridController is not null}");
+            //Debug.Log($"GridController: {_gridController is not null}");
             _targetPosition = targetPosition;
             _gridController.ResetHighlight();
         }

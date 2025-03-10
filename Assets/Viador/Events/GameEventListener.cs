@@ -6,12 +6,24 @@ namespace Viador.Events
 {
    public class GameEventListener : MonoBehaviour
     {
+        [SerializeField] private string gameEventName;
         [SerializeField] private GameEvent gameEvent;
 
         [SerializeField] private CustomGameEvent response;
 
+        private void Awake()
+        {
+            //Debug.Log($"[{gameObject.name}] awaken");
+            if (gameEvent is null && gameEventName is not null)
+            {
+                //Debug.Log($"[{gameObject.name}] getting game event {gameEventName}");
+                gameEvent = GameEventProvider.Get(gameEventName);
+            }
+        }
+
         private void OnEnable()
         {
+            //Debug.Log($"[{gameObject.name}] enabled");
             gameEvent.Subscribe(this);
         }
 
@@ -22,7 +34,7 @@ namespace Viador.Events
 
         public void OnEventTriggered(Component sender, object data)
         {
-            // Debug.Log($"[{sender.name}] triggered [{gameEvent.name}], handled in [{gameObject.name}]");
+            //Debug.Log($"[{sender?.name}] triggered [{gameEvent?.name}], handled in [{gameObject.name}]");
             response.Invoke(sender, data);
         }
     }
