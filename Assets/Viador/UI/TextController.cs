@@ -1,8 +1,7 @@
-using System;
 using TMPro;
 using UnityEngine;
 
-namespace Viador.Scenes.Sandboxes.EventFlow
+namespace Viador.UI
 {
     public class TextController : MonoBehaviour
     {

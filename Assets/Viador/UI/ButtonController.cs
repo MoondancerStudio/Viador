@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Viador.Scenes.Sandboxes.EventFlow
+namespace Viador.UI
 {
     public class ButtonController : MonoBehaviour
     {

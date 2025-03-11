@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Viador.Events;
 
-namespace Viador.Scenes.Sandboxes.EventFlow
+namespace Viador.Game
 {
     public class GameController : MonoBehaviour
     {

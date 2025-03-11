@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using Viador.Events;
 
-namespace Viador.Scenes.Sandboxes.EventFlow
+namespace Viador.Events
 {
     public class EventTriggerScript : MonoBehaviour
     {

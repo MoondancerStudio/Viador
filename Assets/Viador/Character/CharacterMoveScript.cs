@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Viador.Events;
 using Viador.Map;
 
 namespace Viador.Character
@@ -49,6 +50,7 @@ namespace Viador.Character
             if (targetPosition is Vector3 target)
             {
                 Move(target);
+                GameEventProvider.Get(GameEvents.CharacterMoved).Trigger(this, null);
                 HighlightMoveOptions(target);
             }
         }
@@ -57,12 +59,12 @@ namespace Viador.Character
         {
             //Debug.Log($"GridController: {_gridController is not null}");
             _targetPosition = targetPosition;
-            _gridController.ResetHighlight();
+            _gridController.ResetHighlight(); // TODO: Change to event based
         }
 
         private void HighlightMoveOptions(Vector3 characterPosition)
         {
-            _gridController.HighlightMoveOptions(characterPosition);
+            _gridController.HighlightMoveOptions(characterPosition); // TODO: Change to event based
         }
     }
 }

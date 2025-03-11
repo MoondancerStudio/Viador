@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Viador.Events;
 
-namespace Viador.Scenes.Sandboxes.EventFlow
+namespace Viador.Game
 {
     public class TurnManager
     {
