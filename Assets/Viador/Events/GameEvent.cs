@@ -10,6 +10,7 @@ namespace Viador.Events
 
         public void Trigger(Component sender, object data)
         {
+            // Debug.Log($"Triggered ({_listeners.Count} listeners)");
             for (var index = _listeners.Count - 1; index >= 0; index--)
             {
                 var listener = _listeners[index];

@@ -42,7 +42,7 @@ namespace Viador.Map
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
             Vector3Int tilePos = grid.WorldToCell(worldPos);
-            Debug.Log($"Click on {tilePos}");
+            //Debug.Log($"Click on {tilePos}");
 
             if (IsObstacle(tilePos))
             {
