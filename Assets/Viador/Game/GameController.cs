@@ -1,17 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Viador.Character;
 using Viador.Events;
 
 namespace Viador.Game
 {
     public class GameController : MonoBehaviour
     {
+        [SerializeField] private List<CharacterData> characterData;
         private TurnManager _turnManager;
-        [SerializeField] private List<string> players;
 
         private void Awake()
         {
-            _turnManager = new TurnManager(players);
+            List<string> _players = new ();
+            characterData.ForEach(character =>
+                {
+                    _players.Add(character.name);
+                }
+            );
+            
+            _turnManager = new TurnManager(_players);
             Debug.Log($"[{gameObject.name}] awaken");
         }
 

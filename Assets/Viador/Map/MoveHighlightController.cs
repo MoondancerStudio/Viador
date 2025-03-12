@@ -11,7 +11,6 @@ namespace Viador.Map
         private static readonly Vector3 IsometricGridOffset = new(0, 0.25f, 0);
         
         [SerializeField] GameEvent selectMoveEvent;
-        [SerializeField] private int threshold;
         
         private TilemapCollider2D _tilemapCollider;
         private Grid _grid;
@@ -19,7 +18,6 @@ namespace Viador.Map
         void Awake()
         {
             selectMoveEvent = GameEventProvider.Get("MoveSelected");
-            threshold = threshold == 0 ? 1 : threshold;
             
             _grid = GameObject.Find("Grid").GetComponent<Grid>();
             _tilemapCollider = GetComponent<TilemapCollider2D>();
@@ -50,14 +48,6 @@ namespace Viador.Map
         public void OnActionPointsUpdated(Component sender, object actionPoints)
         {
             Debug.Log("ActionPointsUpdated: " + actionPoints);
-            bool haveEnoughActionPoints = threshold <= (int) actionPoints;
-            EnableTilemapInteractions(haveEnoughActionPoints);
-        }
-
-        private void EnableTilemapInteractions(bool value)
-        {
-            this.gameObject.GetComponent<TilemapRenderer>().enabled = value;
-            this.gameObject.GetComponent<TilemapCollider2D>().enabled = value;
         }
     }
 }

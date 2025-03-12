@@ -9,25 +9,23 @@ namespace Viador.Character
     {
         [SerializeField] private GridController _gridController;
         [SerializeField] private bool isSmoothTransitionActive;
+        [SerializeField] private int threshold;
+
+        private bool _isEnabled = false;
 
         private Vector3 _targetPosition;
 
         void Awake()
         {
+            threshold = threshold == 0 ? 1 : threshold;
             _gridController = GameObject.Find("Grid").GetComponent<GridController>();
 
             if (_gridController is null)
             {
                 throw new NullReferenceException("No GridController found");
             }
-            
-            _targetPosition = gameObject.transform.position;
-        }
 
-        void Start()
-        {
-            //Debug.Log("Character: Start");
-            HighlightMoveOptions(gameObject.transform.position);
+            _targetPosition = gameObject.transform.position;
         }
 
         void Update()
@@ -36,7 +34,8 @@ namespace Viador.Character
             {
                 if (isSmoothTransitionActive)
                 {
-                    gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, _targetPosition, Time.deltaTime * 10f);
+                    gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, _targetPosition,
+                        Time.deltaTime * 10f);
                 }
                 else
                 {
@@ -44,27 +43,54 @@ namespace Viador.Character
                 }
             }
         }
-        
+
         public void OnSelectMoveEvent(Component sender, object targetPosition)
         {
+            if (!_isEnabled) return;
+
             if (targetPosition is Vector3 target)
             {
                 Move(target);
                 GameEventProvider.Get(GameEvents.CharacterMoved).Trigger(this, null);
-                HighlightMoveOptions(target);
             }
         }
 
         private void Move(Vector3 targetPosition)
         {
-            //Debug.Log($"GridController: {_gridController is not null}");
             _targetPosition = targetPosition;
-            _gridController.ResetHighlight(); // TODO: Change to event based
+            _gridController.ResetHighlight();
         }
 
         private void HighlightMoveOptions(Vector3 characterPosition)
         {
-            _gridController.HighlightMoveOptions(characterPosition); // TODO: Change to event based
+            _gridController.HighlightMoveOptions(characterPosition);
+        }
+
+        public void OnPlayerUpdated(Component sender, object payload)
+        {
+            _gridController.ResetHighlight();
+
+            if (payload is string)
+            {
+                if (payload.Equals(this.gameObject.name))
+                {
+                    _isEnabled = true;
+                }
+                else
+                {
+                    _isEnabled = false;
+                }
+            }
+        }
+
+        public void OnActionPointsUpdated(Component sender, object actionPoints)
+        {
+            bool haveEnoughActionPoints = threshold <= (int)actionPoints;
+
+            if (haveEnoughActionPoints && _isEnabled)
+            {
+                HighlightMoveOptions(_targetPosition);
+            }
         }
     }
 }

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4523396033454739160}
   - component: {fileID: 8104779347467744383}
   - component: {fileID: 6542663423742137922}
+  - component: {fileID: 1544892012747124353}
+  - component: {fileID: 7098500881108428604}
   m_Layer: 0
   m_Name: CharacterObject
   m_TagString: Untagged
@@ -112,7 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5194de5ddd47d478becf71d95d2d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gridController: {fileID: 0}
   isSmoothTransitionActive: 0
+  threshold: 0
+  isEnabled: 0
 --- !u!114 &6542663423742137922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEventName: 
   gameEvent: {fileID: 11400000, guid: 604d5b1f48b0e674ea5297ec7857acec, type: 2}
   response:
     m_PersistentCalls:
@@ -132,6 +138,64 @@ MonoBehaviour:
       - m_Target: {fileID: 8104779347467744383}
         m_TargetAssemblyTypeName: Viador.Character.CharacterMoveScript, Assembly-CSharp
         m_MethodName: OnSelectMoveEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1544892012747124353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5922068080051762936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: PlayerUpdated
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8104779347467744383}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterMoveScript, Assembly-CSharp
+        m_MethodName: OnPlayerUpdated
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7098500881108428604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5922068080051762936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: ActionPointsUpdated
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8104779347467744383}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterMoveScript, Assembly-CSharp
+        m_MethodName: OnActionPointsUpdated
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
