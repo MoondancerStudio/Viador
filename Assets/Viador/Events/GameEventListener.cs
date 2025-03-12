@@ -6,7 +6,10 @@ namespace Viador.Events
 {
    public class GameEventListener : MonoBehaviour
     {
+        [SerializeField] private string gameEventName;
+        [SerializeField] private string AttackgameEventName;
         [SerializeField] private GameEvent gameEvent;
+        [SerializeField] private GameEvent attackgameEvent;
 
         [SerializeField] private CustomGameEvent response;
 
@@ -18,17 +21,24 @@ namespace Viador.Events
                 //Debug.Log($"[{gameObject.name}] getting game event {gameEventName}");
                 gameEvent = GameEventProvider.Get(gameEventName);
             }
+
+            if (attackgameEvent is null && AttackgameEventName is not null)
+            {
+                //Debug.Log($"[{gameObject.name}] getting game event {gameEventName}");
+                attackgameEvent = GameEventProvider.Get(AttackgameEventName);
+            }
         }
 
         private void OnEnable()
         {
             gameEvent.Subscribe(this);
+            attackgameEvent.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            moveEvent.Unsubscribe(this);
-            attackEvent.Unsubscribe(this);
+            gameEvent.Unsubscribe(this);
+            attackgameEvent.Unsubscribe(this);  
         }
 
         public void OnEventTriggered(Component sender, object data)
