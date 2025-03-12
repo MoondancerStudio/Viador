@@ -13,6 +13,7 @@ namespace Viador.Map
         private static readonly Vector3 IsometricGridOffset = new(0, 0.25f, 0);
         private List<Vector3> x;
         public IUnityService UnityService; // Public for testing
+
         private TilemapCollider2D _tilemapCollider;
         private Grid _grid;
         
@@ -55,8 +56,11 @@ namespace Viador.Map
             {
                 delta = IsometricGridOffset;
             }
-            
-            selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);
+
+            if (Physics2D.OverlapBox(worldPos, new Vector2(0.2f, 0.2f), 0, LayerMask.GetMask("Enemy")) is null)
+                selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);
+            else
+                Debug.Log("Not moving!");
         }
         
         public void OnActionPointsUpdated(Component sender, object actionPoints)

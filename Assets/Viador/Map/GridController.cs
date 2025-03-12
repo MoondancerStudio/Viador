@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,6 +8,8 @@ namespace Viador.Map
     public class GridController : MonoBehaviour
     {
         [SerializeField] private Tile highlightTile;
+        [SerializeField] private Tile attackHighlightTile;
+
         private Tilemap _boardTilemap;
         private Grid _grid;
         private Tilemap _highlightTilemap;
@@ -15,7 +18,7 @@ namespace Viador.Map
         void Awake()
         {
             _grid = GetComponent<Grid>();
-
+            
             if (_grid == null)
             {
                 throw new NullReferenceException("No Grid found");
@@ -71,7 +74,18 @@ namespace Viador.Map
         {
             if (IsOnBoard(tileCoordinate) && !IsBlocked(tileCoordinate))
             {
-                _highlightTilemap.SetTile(tileCoordinate, tile);
+                Vector2 tileWorldPosition = _grid.CellToWorld(tileCoordinate);
+
+                if (Physics2D.OverlapBox(tileWorldPosition, new Vector2(0.2f,0.2f), 0, LayerMask.GetMask("Enemy")) is Collider2D targetHit)
+                {
+               //    Debug.Log($"Click on attack {tileCoordinate}");
+                //   targetHit.gameObject.transform.parent = attackHighlightTile.gameObject.transform;
+                  _highlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
+                }
+                else
+                {
+                  _highlightTilemap.SetTile(tileCoordinate, tile);
+                }
             }
         }
 
