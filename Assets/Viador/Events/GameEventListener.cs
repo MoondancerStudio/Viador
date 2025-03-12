@@ -6,18 +6,21 @@ namespace Viador.Events
 {
    public class GameEventListener : MonoBehaviour
     {
-        [SerializeField] private GameEvent gameEvent;
+        [SerializeField] private GameEvent moveEvent;
+        [SerializeField] private GameEvent attackEvent;
 
         [SerializeField] private CustomGameEvent response;
 
         private void OnEnable()
         {
-            gameEvent.Subscribe(this);
+            moveEvent.Subscribe(this);
+            attackEvent.Subscribe(this);
         }
 
         private void OnDisable()
         {
-            gameEvent.Unsubscribe(this);
+            moveEvent.Unsubscribe(this);
+            attackEvent.Unsubscribe(this);
         }
 
         public void OnEventTriggered(Component sender, object data)

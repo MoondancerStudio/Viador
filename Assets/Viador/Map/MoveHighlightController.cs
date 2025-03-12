@@ -8,7 +8,7 @@ namespace Viador.Map
     public class MoveHighlightController : MonoBehaviour
     {
         [SerializeField] GameEvent selectMoveEvent;
-        
+
         private TilemapCollider2D _tilemapCollider;
         private Grid _grid;
 
@@ -36,8 +36,11 @@ namespace Viador.Map
             {
                 delta = new Vector3(0, 0.25f, 0); // Isometric
             }
-            
-            selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);
+
+            if (Physics2D.OverlapBox(worldPos, new Vector2(0.2f, 0.2f), 0, LayerMask.GetMask("Enemy")) is null)
+                selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);
+            else
+                Debug.Log("Not moving!");
         }
     }
 }
