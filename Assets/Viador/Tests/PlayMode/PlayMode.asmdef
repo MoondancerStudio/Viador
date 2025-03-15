@@ -1,9 +1,13 @@
 {
     "name": "PlayMode",
-    "rootNamespace": "Viador.Tests.PlayMode",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Unity.AutomatedQA",
+        "Unity.AutomatedQA.TestTools",
+        "Unity.TextMeshPro",
+        "Viador"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

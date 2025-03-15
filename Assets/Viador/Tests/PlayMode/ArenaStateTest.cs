@@ -6,15 +6,16 @@ using Assert = UnityEngine.Assertions.Assert;
 
 namespace Viador.Tests.PlayMode
 {
-    public class IntegrationTest : AbstractPlayModeTest
+    public class ArenaStateTest : AbstractPlayModeTest
     {
        
-        public IntegrationTest() : base("Arena") { }
+        public ArenaStateTest() : base("Arena") { }
 
         [UnityTest]
         public IEnumerator CharacterIdentity([Values("Dracon", "Quicchures")] string characterName)
         {
             // Given
+            
             // WHEN
             yield return new WaitWhile(() => SceneLoaded == false);
             

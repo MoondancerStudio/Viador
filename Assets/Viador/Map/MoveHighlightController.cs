@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Viador.Events;
+using Viador.Util;
 
 namespace Viador.Map
 {
@@ -9,28 +11,34 @@ namespace Viador.Map
     {
         private static readonly Vector3 RectangleGridOffset = new(0.5f, 0.5f, 0);
         private static readonly Vector3 IsometricGridOffset = new(0, 0.25f, 0);
+        private List<Vector3> x;
+        public IUnityService UnityService; // Public for testing
+        private TilemapCollider2D _tilemapCollider;
+        private Grid _grid;
         
         [SerializeField] GameEvent selectMoveEvent;
         
-        private TilemapCollider2D _tilemapCollider;
-        private Grid _grid;
-
         void Awake()
         {
+            if (UnityService == null)
+            {
+                UnityService = new UnityService();
+            }
+            
             selectMoveEvent = GameEventProvider.Get("MoveSelected");
             
-            _grid = GameObject.Find("Grid").GetComponent<Grid>();
-            _tilemapCollider = GetComponent<TilemapCollider2D>();
+            _grid = UnityService.FindGameObject("Grid").GetComponent<Grid>();
+            _tilemapCollider = this.GetComponent<TilemapCollider2D>();
             _tilemapCollider.isTrigger = true;
         }
 
-        private void OnMouseDown()
+        public void OnMouseDown()
         {
-            Vector2 mousePos = Input.mousePosition;
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector2 mousePos = UnityService.GetMousePosition();
+            Vector3 worldPos = UnityService.GetMainCamera().ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
             Vector3Int tilePos = _grid.WorldToCell(worldPos);
-            Debug.Log($"Click on {tilePos}");
+            Debug.Log($"Click on {mousePos}|{worldPos}|{tilePos}");
             
             GridLayout.CellLayout cellLayout = _grid.cellLayout;
             Vector3 delta = Vector3.zero;
