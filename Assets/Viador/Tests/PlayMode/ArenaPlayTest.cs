@@ -102,6 +102,22 @@ namespace Viador.Tests.PlayMode
         }
 
         [UnityTest]
+        public IEnumerator InvalidMovementTest()
+        {
+            // Given
+            Vector3 originalPosition = GameObject.Find("Dracon").transform.position;
+            Vector2 suggestedPosition = player1Moves[3];
+            Vector2 newPosition = Camera.main.ScreenToWorldPoint(suggestedPosition);
+            
+            // WHEN
+            yield return ArenaPageObject.Click(new Vector2(GetNormalizedCoordinateX(suggestedPosition),GetNormalizedCoordinateY(suggestedPosition)));
+            var player1Position = GameObject.Find("Dracon").transform.position;
+            
+            // THEN
+            Assert.AreEqual(originalPosition, player1Position, "Player should not move to invalid tile");
+        }
+
+        [UnityTest]
         public IEnumerator NextPlayerTest()
         {
             yield return ArenaPageObject.Click();

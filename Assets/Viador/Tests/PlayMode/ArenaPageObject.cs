@@ -45,7 +45,6 @@ namespace Viador.Tests.PlayMode
         
         public IEnumerator Click()
         {
-            // TODO: Move mouse in position (Mouse.WarpCursorPosition)
             GameObject.Find(MoveHighlightLayer).GetComponent<MoveHighlightController>().OnMouseDown();
             yield return new WaitForSeconds(0.1f);
         }

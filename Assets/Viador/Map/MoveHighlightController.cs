@@ -39,6 +39,12 @@ namespace Viador.Map
             worldPos.z = 0;
             Vector3Int tilePos = _grid.WorldToCell(worldPos);
             Debug.Log($"Click on {mousePos}|{worldPos}|{tilePos}");
+
+            if (!_tilemapCollider.OverlapPoint(worldPos))
+            {
+                Debug.Log("No overlapping tile, no trigger");
+                return;
+            }
             
             GridLayout.CellLayout cellLayout = _grid.cellLayout;
             Vector3 delta = Vector3.zero;
