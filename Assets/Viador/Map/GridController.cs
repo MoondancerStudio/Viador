@@ -10,6 +10,7 @@ namespace Viador.Map
         private Tilemap _boardTilemap;
         private Grid _grid;
         private Tilemap _highlightTilemap;
+        private Tilemap _obstacleTilemap;
 
         void Awake()
         {
@@ -32,6 +33,13 @@ namespace Viador.Map
             if (_highlightTilemap == null)
             {
                 throw new NullReferenceException("No Highlight Tilemap found");
+            }
+            
+            _obstacleTilemap = GameObject.Find("ObstacleTilemap").GetComponent<Tilemap>();
+
+            if (_obstacleTilemap == null)
+            {
+                throw new NullReferenceException("No Obstacle Tilemap found");
             }
         }
 
@@ -61,10 +69,15 @@ namespace Viador.Map
 
         private void SetTile(Vector3Int tileCoordinate, Tile tile)
         {
-            if (IsOnBoard(tileCoordinate))
+            if (IsOnBoard(tileCoordinate) && !IsBlocked(tileCoordinate))
             {
                 _highlightTilemap.SetTile(tileCoordinate, tile);
             }
+        }
+
+        private bool IsBlocked(Vector3Int tileCoordinate)
+        {
+            return _obstacleTilemap.GetTile(tileCoordinate) is not null;
         }
 
         private bool IsOnBoard(Vector3Int tileCoordinate)
@@ -75,6 +88,18 @@ namespace Viador.Map
         public void ResetHighlight()
         {
             _highlightTilemap.ClearAllTiles();
+        }
+        
+        public void MoveCharacterPositionHighlight(Vector3 characterPosition, Vector3 newPosition)
+        {
+            Vector3Int oldGridPosition = _grid.WorldToCell(characterPosition);
+            Vector3Int newGridPosition = _grid.WorldToCell(newPosition);
+            Debug.Log($"Grid: MoveCharacterPositionHighlight {oldGridPosition}; {newGridPosition}");
+            
+            _obstacleTilemap.SetTile(oldGridPosition, null);
+            Tile tile = ScriptableObject.CreateInstance<Tile>();
+            tile.color = new Color(12, 56, 147, 0.5f); // FIXME
+            _obstacleTilemap.SetTile(newGridPosition, tile);
         }
     }
 }

@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using Viador.Character;
 using Viador.Map;
 using Viador.Tests.PlayMode.Mocks;
 using Assert = UnityEngine.Assertions.Assert;
@@ -16,12 +17,19 @@ namespace Viador.Tests.PlayMode
         private float width = 1920f;
         private float height = 1080f;
         
-        private System.Collections.Generic.List<Vector2> player1Moves = new()
+        private System.Collections.Generic.List<Vector2> playerMoves = new()
         {
             new Vector2(954.03f, 343.09f),
             new Vector2(1016.69f, 378.90f),
             new Vector2(1007.74f, 426.63f),
-            new Vector2(1052.49f, 462.43f)
+            new Vector2(1052.49f, 462.43f),
+            new Vector2(1073.37f, 498.23f),
+            new Vector2(1088.29f, 572.82f),
+            
+            new Vector2(965.97f, 724.97f), // TODO
+            new Vector2(957.02f, 680.22f), // TODO
+            new Vector2(951.05f, 608.62f), // TODO
+            new Vector2(1010.72f, 590.72f), // TODO
         };
 
         [SetUp]
@@ -77,9 +85,10 @@ namespace Viador.Tests.PlayMode
         [UnityTest]
         public IEnumerator ActionPointsAfterOneMoveTest()
         {
-            // Given
+            // GIVEN
             // WHEN
-            yield return ArenaPageObject.Click();
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[0]));
+            yield return null;
             var actualActionPoints = ArenaPageObject.GetActualActionPoints();
             
             // THEN
@@ -90,10 +99,10 @@ namespace Viador.Tests.PlayMode
         public IEnumerator OnePlayerMovementTest()
         {
             // Given
-            Vector2 newPosition = Camera.main.ScreenToWorldPoint(player1Moves[0]);
+            Vector2 newPosition = Camera.main.ScreenToWorldPoint(playerMoves[0]);
             
             // WHEN
-            yield return ArenaPageObject.Click(new Vector2(GetNormalizedCoordinateX(player1Moves[0]),GetNormalizedCoordinateY(player1Moves[0])));
+            yield return ArenaPageObject.Click(new Vector2(GetNormalizedCoordinateX(playerMoves[0]),GetNormalizedCoordinateY(playerMoves[0])));
             var player1Position = GameObject.Find("Dracon").transform.position;
             
             // THEN
@@ -106,7 +115,7 @@ namespace Viador.Tests.PlayMode
         {
             // Given
             Vector3 originalPosition = GameObject.Find("Dracon").transform.position;
-            Vector2 suggestedPosition = player1Moves[3];
+            Vector2 suggestedPosition = playerMoves[3];
             Vector2 newPosition = Camera.main.ScreenToWorldPoint(suggestedPosition);
             
             // WHEN
@@ -120,7 +129,8 @@ namespace Viador.Tests.PlayMode
         [UnityTest]
         public IEnumerator NextPlayerTest()
         {
-            yield return ArenaPageObject.Click();
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[0]));
+            yield return null;
             Assert.AreEqual(5, ArenaPageObject.GetActualActionPoints());
             yield return ArenaPageObject.NextTurn();
             var actualRound = ArenaPageObject.GetActualRound();
@@ -149,9 +159,39 @@ namespace Viador.Tests.PlayMode
             Assert.AreNotEqual(ArenaPageObject.SceneName, actualSceneName);
         }
         
-        
-        
-        
+        [UnityTest]
+        public IEnumerator X()
+        {
+            // GIVEN
+            var camera = Camera.main;
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[0]));
+            Debug.Log($"Test Clicked {playerMoves[0]}");
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[1]));
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[2]));
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[3]));
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[4]));
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[5]));
+            yield return ArenaPageObject.NextTurn();
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[6]));
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[7]));
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[8]));
+            var lastValidMove = ToScreenProportionate(playerMoves[9]);
+            yield return ArenaPageObject.Click(lastValidMove);
+            
+            // WHEN
+            yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[5]));
+            
+            // THEN
+
+            var player1Position = GameObject.Find("Quicchures").transform.position;
+            Assert.AreApproximatelyEqual(lastValidMove.x, player1Position.x, 0.1f, "Player 2 should move (X)");
+            Assert.AreApproximatelyEqual(lastValidMove.y, player1Position.y, 0.1f, "Player 2 should move (Y)");
+        }
+
+        private Vector2 ToScreenProportionate(Vector3 position)
+        {
+            return new Vector2(GetNormalizedCoordinateX(position), GetNormalizedCoordinateY(position));
+        }
         
         private float GetNormalizedCoordinateY(Vector2 position)
         {
