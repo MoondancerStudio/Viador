@@ -13,11 +13,13 @@ namespace Viador.Map
         private static readonly Vector3 IsometricGridOffset = new(0, 0.25f, 0);
         private List<Vector3> x;
         public IUnityService UnityService; // Public for testing
+        
+        [SerializeField] GameEvent selectMoveEvent;
+        [SerializeField] private int threshold;
+        
 
         private TilemapCollider2D _tilemapCollider;
         private Grid _grid;
-        
-        [SerializeField] GameEvent selectMoveEvent;
         
         void Awake()
         {
@@ -57,10 +59,20 @@ namespace Viador.Map
                 delta = IsometricGridOffset;
             }
 
-            if (Physics2D.OverlapBox(worldPos, new Vector2(0.2f, 0.2f), 0, LayerMask.GetMask("Enemy")) is null)
-                selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);
-            else
-                Debug.Log("Not moving!");
+            selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);       
+        }
+        
+        public void OnActionPointsUpdated(Component sender, object actionPoints)
+        {
+            Debug.Log("ActionPointsUpdated: " + actionPoints);
+            bool haveEnoughActionPoints = threshold <= (int) actionPoints;
+            EnableTilemapInteractions(haveEnoughActionPoints);
+        }
+
+        private void EnableTilemapInteractions(bool value)
+        {
+            this.gameObject.GetComponent<TilemapRenderer>().enabled = value;
+            this.gameObject.GetComponent<TilemapCollider2D>().enabled = value;
         }
         
         public void OnActionPointsUpdated(Component sender, object actionPoints)

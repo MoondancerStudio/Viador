@@ -4,11 +4,11 @@
 - Active scene:
   - Name: Arena
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Enemy
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Enemy, Character
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI, Player, Enemy
+    - Default, TransparentFX, Ignore Raycast, Water, UI, Player, Enemy, Character, AttackHighlight
 - Active game object:
   - Name: Player2
-  - Tag: Enemy
-  - Layer: Enemy
+  - Tag: Character
+  - Layer: Character
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
