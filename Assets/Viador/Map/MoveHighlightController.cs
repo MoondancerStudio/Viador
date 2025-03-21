@@ -18,6 +18,7 @@ namespace Viador.Map
 
         void Awake()
         {
+            Debug.Log("Move setup!");
             selectMoveEvent = GameEventProvider.Get("MoveSelected");
             threshold = threshold == 0 ? 1 : threshold;
             
@@ -44,10 +45,7 @@ namespace Viador.Map
                 delta = IsometricGridOffset;
             }
 
-            if (Physics2D.OverlapBox(worldPos, new Vector2(0.2f, 0.2f), 0, LayerMask.GetMask("Enemy")) is null)
-                selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);
-            else
-                Debug.Log("Not moving!");
+            selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);       
         }
         
         public void OnActionPointsUpdated(Component sender, object actionPoints)

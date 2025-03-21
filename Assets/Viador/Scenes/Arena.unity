@@ -165,11 +165,10 @@ GameObject:
   - component: {fileID: 138425537}
   - component: {fileID: 138425536}
   - component: {fileID: 138425535}
-  - component: {fileID: 138425534}
   - component: {fileID: 138425538}
   - component: {fileID: 138425539}
   m_Layer: 0
-  m_Name: HighlightTilemap
+  m_Name: MoveHighlightTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,20 +189,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 465215236}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &138425534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138425532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6782372dd6a04b60b66eb7fc63aee0d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectMoveEvent: {fileID: 11400000, guid: 604d5b1f48b0e674ea5297ec7857acec, type: 2}
-  threshold: 0
 --- !u!19719996 &138425535
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -362,17 +347,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 138425532}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6782372dd6a04b60b66eb7fc63aee0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectMoveEvent: {fileID: 11400000, guid: 604d5b1f48b0e674ea5297ec7857acec, type: 2}
+  threshold: 0
+--- !u!114 &138425539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138425532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameEventName: ActionPointsUpdated
-  AttackgameEventName: 
   gameEvent: {fileID: 0}
-  attackgameEvent: {fileID: 0}
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 138425534}
+      - m_Target: {fileID: 138425538}
         m_TargetAssemblyTypeName: Viador.Map.MoveHighlightController, Assembly-CSharp
         m_MethodName: OnActionPointsUpdated
         m_Mode: 0
@@ -384,22 +381,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &138425539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138425532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32ebe9d2921cbee49ad0b9ea128ba231, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectAttackEvent: {fileID: 11400000, guid: 533c9c5198a8dd14cb628932ff047669, type: 2}
-  layerIgnored:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1 &157013502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,7 +1995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5342435258835216560, guid: b617cfb600408c440b859ba49d5e00e6, type: 3}
       propertyPath: 'players.Array.data[0]'
-      value: Player 1 (red)
+      value: Dracon
       objectReference: {fileID: 0}
     - target: {fileID: 5342435258835216560, guid: b617cfb600408c440b859ba49d5e00e6, type: 3}
       propertyPath: 'players.Array.data[1]'
@@ -2057,6 +2038,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 187732600}
+  - {fileID: 828386509}
   - {fileID: 138425533}
   m_Father: {fileID: 1028955733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2403,6 +2385,206 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2291938757306658341, guid: 89db57229d58cbb4482d1256f1b4907e, type: 3}
   m_PrefabInstance: {fileID: 743560955}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &828386508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 828386509}
+  - component: {fileID: 828386513}
+  - component: {fileID: 828386512}
+  - component: {fileID: 828386511}
+  - component: {fileID: 828386514}
+  m_Layer: 9
+  m_Name: AttackHighlightTilemap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &828386509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828386508}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 465215236}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!19719996 &828386511
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828386508}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
+--- !u!483693784 &828386512
+TilemapRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828386508}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
+  m_ChunkSize: {x: 32, y: 32, z: 32}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_MaxChunkCount: 16
+  m_MaxFrameAge: 16
+  m_SortOrder: 3
+  m_Mode: 0
+  m_DetectChunkCullingBounds: 0
+  m_MaskInteraction: 0
+--- !u!1839735485 &828386513
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828386508}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: -1.7618306e-19
+      e03: -1.7618306e-19
+      e10: 0
+      e11: 0
+      e12: 7.85e-43
+      e13: 7.85e-43
+      e20: -3.0986657e+18
+      e21: -1.092108e-19
+      e22: 1.5329372e-28
+      e23: -1.092108e-19
+      e30: 4.5912e-41
+      e31: 7.88e-43
+      e32: 7.86e-43
+      e33: 7.88e-43
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: 6.8655e-41, g: 6.8655e-41, b: 6.8655e-41, a: 6.8655e-41}
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: -5, y: -5, z: 0}
+  m_Size: {x: 11, y: 9, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+--- !u!114 &828386514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828386508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ebe9d2921cbee49ad0b9ea128ba231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectAttackEvent: {fileID: 11400000, guid: 533c9c5198a8dd14cb628932ff047669, type: 2}
+  layerIncluded:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1028955732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2792,6 +2974,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e2f059ddde106d341a40b09e8c26b3df, type: 2}
     - target: {fileID: 4523396033454739160, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      propertyPath: attackTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 9460989fc11fc89428126681807e0359, type: 2}
+    - target: {fileID: 4523396033454739160, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: characterData
       value: 
       objectReference: {fileID: 11400000, guid: e2f059ddde106d341a40b09e8c26b3df, type: 2}
@@ -2845,11 +3031,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Character
       objectReference: {fileID: 0}
     - target: {fileID: 6542663423742137922, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_Enabled
@@ -2891,6 +3077,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525549538}
     - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1525549528}
@@ -2946,6 +3135,46 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1525549536 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4523396033454739160, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+  m_PrefabInstance: {fileID: 1525549522}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffe55a0c3cbeea45bffe10eae6fce33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1525549538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: CharacterDefensed
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1525549536}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterScript, Assembly-CSharp
+        m_MethodName: OnCharacterDefensed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1777036422
 GameObject:
   m_ObjectHideFlags: 0
@@ -3132,6 +3361,10 @@ PrefabInstance:
       propertyPath: characterData
       value: 
       objectReference: {fileID: 11400000, guid: 2b3cfb3dad9f57e4799fa137db4d1fd5, type: 2}
+    - target: {fileID: 4523396033454739160, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      propertyPath: attackTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e8a89a9874cb5048a2685252361a6a8, type: 2}
     - target: {fileID: 4897463591353582055, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_Name
       value: BluePlayer
@@ -3202,7 +3435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6542663423742137922, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: response.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6542663423742137922, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: response.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -3263,6 +3496,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       insertIndex: 4
       addedObject: {fileID: 2981675541820229700}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2981675541820229710}
   m_SourcePrefab: {fileID: 100100000, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
 --- !u!4 &2981675541820229698 stripped
 Transform:
@@ -3287,6 +3523,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridController: {fileID: 0}
+--- !u!114 &2981675541820229708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4523396033454739160, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+  m_PrefabInstance: {fileID: 2981675541820229697}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffe55a0c3cbeea45bffe10eae6fce33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2981675541820229710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: CharacterChoosenToAttack
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2981675541820229708}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterScript, Assembly-CSharp
+        m_MethodName: OnCharacterDamaged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &4616611809302570946 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1936305763789021367, guid: 0976265e9005d9c458d47e87aabb29fb, type: 3}
