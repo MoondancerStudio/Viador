@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Viador.Events;
 using Viador.Map;
 
 namespace Viador.Character
@@ -18,23 +19,19 @@ namespace Viador.Character
             }
         }
 
-        void Start()
-        {
-            Debug.Log("Character: Start");
-        }
-
-        void Update()
-        {
-        
-        }
-
         public void OnSelectAttackEvent(Component sender, object targetToHit)
         {
-            if (targetToHit is GameObject targetGameObject)
+            Debug.Log($"{sender.gameObject.tag} : {targetToHit}");
+
+            if (targetToHit is CharacterData target)
             {
                 Debug.Log($"Attack on: {targetToHit}");
+                target.health--;
+            }
+
+            if (targetToHit is GameObject targetGameObject)
+            {
                 Attack(targetGameObject);
-                //HighlightMoveOptions(_gridController.GetComponent<Grid>().CellToWorld(Vector3Int.CeilToInt(sender.transform.position)) + new Vector3(0, 0.25f, 0));
             }
         }
 
@@ -43,14 +40,10 @@ namespace Viador.Character
             Debug.Log($"GridController: {_gridController is not null}");
 
             Debug.Log($"{targetToAttack.name} has been attacked!");
-            targetToAttack.GetComponent<CharacterScript>()._health--;
 
-           // _gridController.ResetHighlight();
-        }
-
-        private void HighlightMoveOptions(Vector3 characterPosition)
-        {
-            _gridController.HighlightMoveOptions(characterPosition);
+          //  GetComponent<CharacterData>().attack
+          //  GameEventProvider.Get(GameEvents.CharacterAttacked).Trigger(null, 0);
+            //  attackCalculate.trigger(this, damageScore);
         }
     }
 }
