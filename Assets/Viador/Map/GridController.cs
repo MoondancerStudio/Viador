@@ -90,7 +90,6 @@ namespace Viador.Map
 
                 if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, LayerMask.GetMask("Character")) is Collider2D targetHit)
                 {
-
                   _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
                 }
                 else

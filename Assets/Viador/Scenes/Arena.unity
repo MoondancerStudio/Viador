@@ -2647,7 +2647,8 @@ GameObject:
   - component: {fileID: 828386512}
   - component: {fileID: 828386511}
   - component: {fileID: 828386514}
-  m_Layer: 9
+  - component: {fileID: 828386515}
+  m_Layer: 8
   m_Name: AttackHighlightTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2663,7 +2664,7 @@ Transform:
   m_GameObject: {fileID: 828386508}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2833,7 +2834,37 @@ MonoBehaviour:
   selectAttackEvent: {fileID: 11400000, guid: 533c9c5198a8dd14cb628932ff047669, type: 2}
   layerIncluded:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
+  threshold: 0
+--- !u!114 &828386515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828386508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: ActionPointsUpdated
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 828386514}
+        m_TargetAssemblyTypeName: Viador.Map.AttackHighlightController, Assembly-CSharp
+        m_MethodName: OnActionPointsUpdatedForAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1028955732
 GameObject:
   m_ObjectHideFlags: 0
@@ -3304,7 +3335,7 @@ PrefabInstance:
     - target: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3,
         type: 3}
@@ -3357,6 +3388,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3,
         type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1525549542}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3,
+        type: 3}
       insertIndex: -1
       addedObject: {fileID: 1525549538}
     - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3,
@@ -3387,7 +3422,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3416,18 +3451,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1525549536 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4523396033454739160, guid: 760ee81481f1da44db14f0800a6f27e3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1525549522}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732632111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffe55a0c3cbeea45bffe10eae6fce33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1525549538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3445,8 +3468,8 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1525549536}
-        m_TargetAssemblyTypeName: Viador.Character.CharacterScript, Assembly-CSharp
+      - m_Target: {fileID: 1525549542}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAttackScript, Assembly-CSharp
         m_MethodName: OnCharacterDefensed
         m_Mode: 0
         m_Arguments:
@@ -3457,6 +3480,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1525549542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f0e3ebee0842904ca7bdad14672d081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterData: {fileID: 11400000, guid: e2f059ddde106d341a40b09e8c26b3df, type: 2}
+  _gameEventListener: {fileID: 1525549538}
 --- !u!1 &1777036422
 GameObject:
   m_ObjectHideFlags: 0
@@ -3849,19 +3886,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0e3ebee0842904ca7bdad14672d081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridController: {fileID: 0}
---- !u!114 &2981675541820229708 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4523396033454739160, guid: 760ee81481f1da44db14f0800a6f27e3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2981675541820229697}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2981675541820229699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffe55a0c3cbeea45bffe10eae6fce33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _characterData: {fileID: 11400000, guid: 2b3cfb3dad9f57e4799fa137db4d1fd5, type: 2}
+  _gameEventListener: {fileID: 2981675541820229710}
 --- !u!114 &2981675541820229710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3879,7 +3905,7 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2981675541820229708}
+      - m_Target: {fileID: 2981675541820229700}
         m_TargetAssemblyTypeName: Viador.Character.CharacterScript, Assembly-CSharp
         m_MethodName: OnCharacterDamaged
         m_Mode: 0
@@ -4017,15 +4043,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: [{targetCorrespondingSourceObject: {fileID: 1936305763789021367,
-          guid: 0976265e9005d9c458d47e87aabb29fb, type: 3}, insertIndex: 1, addedObject: {
-          fileID: 1777036423}}, {targetCorrespondingSourceObject: {fileID: 1936305763789021367,
-          guid: 0976265e9005d9c458d47e87aabb29fb, type: 3}, insertIndex: 2, addedObject: {
-          fileID: 1271729319}}, {targetCorrespondingSourceObject: {fileID: 6742738672641641675,
-          guid: 0976265e9005d9c458d47e87aabb29fb, type: 3}, insertIndex: -1, addedObject: {
-          fileID: 161152113}}, {targetCorrespondingSourceObject: {fileID: 6742738672641641675,
-          guid: 0976265e9005d9c458d47e87aabb29fb, type: 3}, insertIndex: -1, addedObject: {
-          fileID: 743560956}}]
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1936305763789021367, guid: 0976265e9005d9c458d47e87aabb29fb,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1777036423}
+    - targetCorrespondingSourceObject: {fileID: 1936305763789021367, guid: 0976265e9005d9c458d47e87aabb29fb,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1271729319}
+    - targetCorrespondingSourceObject: {fileID: 6742738672641641675, guid: 0976265e9005d9c458d47e87aabb29fb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 161152113}
+    - targetCorrespondingSourceObject: {fileID: 6742738672641641675, guid: 0976265e9005d9c458d47e87aabb29fb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 743560956}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0976265e9005d9c458d47e87aabb29fb, type: 3}
 --- !u!224 &9049234430313748797 stripped
