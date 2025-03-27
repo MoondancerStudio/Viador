@@ -2,6 +2,7 @@
 using UnityEditor.U2D.Animation;
 using UnityEngine;
 using Viador.Events;
+using Viador.Game;
 using Viador.Map;
 
 namespace Viador.Character
@@ -10,53 +11,52 @@ namespace Viador.Character
     {
         private static readonly Vector2 sizeOfBoxCollider = Vector2.one;
 
-        [SerializeField] private CharacterData _characterData;
-        [SerializeField] private GameEventListener _gameEventListener;
         private LayerMask _includeLayer;
+
+        public CharacterData characterData;
 
         void Awake()
         {
             _includeLayer = LayerMask.GetMask("AttackHighlight");
+        }
 
-            if (_characterData is null)
+        void Start()
+        {
+            if (characterData is null)
             {
                 throw new NullReferenceException("No Character data found");
             }
         }
 
-        // Player 1 megtámadja player 2-t, ezt most Player 1-nél van
         public void OnCharacterDamaged(Component sender, object hp)
         {
-            Debug.Log($"[Sender]: {sender} [Health points of player 2]: {hp}");
+            if (TurnManager.activePlayer.Equals(name))
+            {
+                Debug.Log($"[Sender]: {sender} [Health points of player 2]: {hp}");
 
-            int calculateDamage = (int)hp - _characterData.attack;
+                int calculateDamage = (int)hp - characterData.attack;
 
-            Debug.Log($"[Sender's attack power is]: {_characterData.attack} [Remaining health points of player 2 is]: {calculateDamage}");
+                Debug.Log($"[Sender's attack power is]: {characterData.attack} [Remaining health points of player 2 is]: {calculateDamage}");
 
-            GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(this, calculateDamage);
+                GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, calculateDamage);
+            }
         }
 
-        // Támadás után megkapja a player 2 a hp vesztességet és
-        // korrigálja védekezéssel
         public void OnCharacterDefensed(Component sender, object healthLost)
         {
-            Debug.Log($"[Sender]: {sender} [Health points lost of player 2]: {healthLost}");
-            int updateHP = _characterData.defense + (int)healthLost;
+            if (sender.name.Equals(name))
+            {
+                Debug.Log($"[Sender]: {sender} [Health points lost of player 2]: {healthLost}");
+                int updateHP = characterData.defense + (int)healthLost;
 
-            Debug.Log($"[player 2 defense is]: {_characterData.defense}, so the health points is: {updateHP}");
+                Debug.Log($"[player 2 defense is]: {characterData.defense}, so the health points is: {updateHP}");
 
-            // Update hp
-            _characterData.health = updateHP;
+                // Update hp
+                characterData.health = updateHP;
 
-            // Send to UI
-            GameEventProvider.Get(GameEvents.UIStateUpdated).Trigger(this, updateHP);
-        }
-
-        // A védekezés után kiküldjük a végleges életerőt player 2 önmagának,
-        // majd a UI-nak is majd meg egyéb helyekre, ahol fontos
-        public void OnHealthPointUpdated(Component sender, object hp)
-        {
-            // TODO: UI update!
+                // Send to UI
+                GameEventProvider.Get(GameEvents.UIStateUpdated).Trigger(sender, updateHP);
+            }
         }
 
         private void OnMouseDown()
@@ -65,12 +65,9 @@ namespace Viador.Character
             {
                 Debug.Log($"Start attack on {name}");
 
-                _gameEventListener.enabled = true;
                 GameEventProvider.Get(GameEvents.CharacterChoosenToAttack).
-                    Trigger(this, _characterData.health);
+                    Trigger(this, characterData.health);
                 GameEventProvider.Get(GameEvents.CharacterMoved).Trigger(this, null);
-                _gameEventListener.enabled = false;
-
             }
         }
     }
