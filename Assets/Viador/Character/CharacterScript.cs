@@ -10,13 +10,12 @@ namespace Viador.Character
     public class CharacterScript : MonoBehaviour
     {
         [SerializeField] private CharacterData characterData;
-        private GameEventListener _gameEventListener;
-
 
         private void Awake()
         {
             gameObject.name = characterData.name;
             gameObject.GetComponent<SpriteRenderer>().sprite = characterData.icon;
+            gameObject.GetComponent<CharacterAttackScript>().characterData = characterData;
         }
     }
 }

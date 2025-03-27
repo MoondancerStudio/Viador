@@ -2748,7 +2748,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -3335,7 +3335,7 @@ PrefabInstance:
     - target: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3,
         type: 3}
@@ -3458,7 +3458,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732632111}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
   m_Name: 
@@ -3492,8 +3492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0e3ebee0842904ca7bdad14672d081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterData: {fileID: 11400000, guid: e2f059ddde106d341a40b09e8c26b3df, type: 2}
-  _gameEventListener: {fileID: 1525549538}
+  characterData: {fileID: 0}
 --- !u!1 &1777036422
 GameObject:
   m_ObjectHideFlags: 0
@@ -3886,8 +3885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0e3ebee0842904ca7bdad14672d081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterData: {fileID: 11400000, guid: 2b3cfb3dad9f57e4799fa137db4d1fd5, type: 2}
-  _gameEventListener: {fileID: 2981675541820229710}
+  characterData: {fileID: 0}
 --- !u!114 &2981675541820229710
 MonoBehaviour:
   m_ObjectHideFlags: 0

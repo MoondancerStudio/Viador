@@ -88,7 +88,7 @@ namespace Viador.Map
             {
                 Vector2 tileWorldPosition = _grid.CellToWorld(tileCoordinate);
 
-                if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, LayerMask.GetMask("Character")) is Collider2D targetHit)
+                if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, LayerMask.GetMask("Character")))
                 {
                   _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
                 }
