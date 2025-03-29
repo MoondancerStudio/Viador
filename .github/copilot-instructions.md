@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Character, Water, UI, Player, Enemy, AttackHighlight
 - Active game object:
-  - Name: Background
+  - Name: StageContainer
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

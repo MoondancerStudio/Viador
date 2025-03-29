@@ -1,9 +1,7 @@
 ﻿using System;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 using Viador.Events;
 using Viador.Game;
-using Viador.Map;
 
 namespace Viador.Character
 {
@@ -30,7 +28,7 @@ namespace Viador.Character
 
         public void OnCharacterDamaged(Component sender, object hp)
         {
-            if (TurnManager.activePlayer.Equals(name))
+            if (TurnManager.activePlayer.Equals(name)) // TODO: use _currentPlayer instead as it is handled during new turn
             {
                 Debug.Log($"[Sender]: {sender} [Health points of player 2]: {hp}");
 
