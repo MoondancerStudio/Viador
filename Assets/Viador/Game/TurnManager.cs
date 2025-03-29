@@ -12,7 +12,7 @@ namespace Viador.Game
         private string _currentPlayer;  
         private int _actionPoints;
 
-        public static string activePlayer;
+        public static string activePlayer; // TODO: use _currentPlayer instead as it is handled during new turn 
 
         public TurnManager(List<string> players)
         {
