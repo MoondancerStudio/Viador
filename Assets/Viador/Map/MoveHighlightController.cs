@@ -74,10 +74,5 @@ namespace Viador.Map
             this.gameObject.GetComponent<TilemapRenderer>().enabled = value;
             this.gameObject.GetComponent<TilemapCollider2D>().enabled = value;
         }
-        
-        public void OnActionPointsUpdated(Component sender, object actionPoints)
-        {
-            Debug.Log("ActionPointsUpdated: " + actionPoints);
-        }
     }
 }
