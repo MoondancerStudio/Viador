@@ -28,9 +28,9 @@ namespace Viador.Character
 
         public void OnCharacterDamaged(Component sender, object hp)
         {
-            if (TurnManager.activePlayer.Equals(name)) // TODO: use _currentPlayer instead as it is handled during new turn
+            if (TurnManager._currentPlayer.Equals(name))
             {
-                Debug.Log($"[Sender]: {sender} [Health points of player 2]: {hp}");
+                Debug.Log($"[Sender]: {name} [Health points of {sender}]: {hp}");
 
                 int calculateDamage = (int)hp - characterData.attack;
 
@@ -42,6 +42,7 @@ namespace Viador.Character
 
         public void OnCharacterDefensed(Component sender, object healthLost)
         {
+            Debug.Log($"OnCharacterDefensed: {name}");
             if (sender.name.Equals(name))
             {
                 Debug.Log($"[Sender]: {sender} [Health points lost of player 2]: {healthLost}");
@@ -59,6 +60,7 @@ namespace Viador.Character
 
         private void OnMouseDown()
         {
+            Debug.Log($"Current player is: {TurnManager._currentPlayer}");
             if (Physics2D.OverlapBox(transform.position, sizeOfBoxCollider, 0, _includeLayer))
             {
                 Debug.Log($"Start attack on {name}");

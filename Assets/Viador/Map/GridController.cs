@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using Viador.Character;
 
 namespace Viador.Map
 {
     public class GridController : MonoBehaviour
     {
-        private static readonly Vector2 sizeOfBoxCollider = new(0.2f, 0.2f);
+        private static readonly Vector2 sizeOfBoxCollider = new(0.5f, 0.5f);
 
         [SerializeField] private Tile highlightTile;
         [SerializeField] private Tile attackHighlightTile;
@@ -19,6 +20,13 @@ namespace Viador.Map
         private Tilemap _MovehighlightTilemap;
         private Tilemap _AttackhighlightTilemap;
         private Tilemap _obstacleTilemap;
+
+        Vector2 halfSize = Vector2.one;
+
+        Vector3 topLeft = Vector2.one;
+        Vector3 topRight = Vector2.one;
+        Vector3 bottomLeft = Vector2.one;
+        Vector3 bottomRight = Vector2.one;
 
         void Awake()
         {
@@ -72,6 +80,7 @@ namespace Viador.Map
 
         private void SetPerimeterTiles(Vector3Int charTilePos, Tile highlightTile)
         {
+            Debug.Log($"tile original pos {_grid.CellToWorld(charTilePos)}");
             SetTile(charTilePos + Vector3Int.up + Vector3Int.left, highlightTile);
             SetTile(charTilePos + Vector3Int.up, highlightTile);
             SetTile(charTilePos + Vector3Int.up + Vector3Int.right, highlightTile);
@@ -82,15 +91,42 @@ namespace Viador.Map
             SetTile(charTilePos + Vector3Int.down + Vector3Int.right, highlightTile);
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawLine(topLeft, topRight);
+            Gizmos.DrawLine(topRight, bottomRight);
+            Gizmos.DrawLine(bottomRight, bottomLeft);
+            Gizmos.DrawLine(bottomLeft, topLeft);
+            Gizmos.color = Color.yellow;
+        }
+
+        void DrawOverlapBox(Vector2 center, Vector2 size)
+        {
+            Vector2 halfSize = size;
+
+             topLeft = center + new Vector2(-halfSize.x, halfSize.y);
+             topRight = center + new Vector2(halfSize.x, halfSize.y);
+             bottomLeft = center + new Vector2(-halfSize.x, -halfSize.y);
+             bottomRight = center + new Vector2(halfSize.x, -halfSize.y);
+        }
+
         private void SetTile(Vector3Int tileCoordinate, Tile tile)
         {
             if (IsOnBoard(tileCoordinate) && !IsBlocked(tileCoordinate))
             {
                 Vector2 tileWorldPosition = _grid.CellToWorld(tileCoordinate);
 
-                if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, LayerMask.GetMask("Character")))
+
+             //   tileWorldPosition.Set(tileCoordinate.x, tileCoordinate.y);
+
+                if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, LayerMask.GetMask("Character")) is Collider2D enemy)
                 {
-                  _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
+                    DrawOverlapBox(tileWorldPosition, sizeOfBoxCollider);
+                    Debug.Log($"Character name: {enemy.name} with pos: {enemy.transform.position} standing at {tileWorldPosition}");
+               //     enemy.transform.position = _grid.WorldToCell(enemy.transform.position);
+                //    tileCoordinate = new Vector3Int((int)enemy.transform.position.x, (int)enemy.transform.position.y);
+               //     _AttackhighlightTilemap.SetTile(new Vector3Int((int)enemy.transform.position.x, (int)enemy.transform.position.y), attackHighlightTile);
+                   _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
                 }
                 else
                 {
