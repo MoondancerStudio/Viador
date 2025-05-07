@@ -9,10 +9,9 @@ namespace Viador.Game
         private readonly List<string> _players;
         
         private int _currentTurn;
-        private string _currentPlayer;  
         private int _actionPoints;
 
-        public static string activePlayer; // TODO: use _currentPlayer instead as it is handled during new turn 
+        public static string _currentPlayer;  
 
         public TurnManager(List<string> players)
         {
@@ -42,7 +41,7 @@ namespace Viador.Game
             {
                 _currentPlayer = _players[indexOfPlayer + 1];
             }
-            activePlayer = _currentPlayer;
+
             GameEventProvider.Get(GameEvents.PlayerUpdated).Trigger(null, _currentPlayer);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
