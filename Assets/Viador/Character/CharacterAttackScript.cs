@@ -2,12 +2,15 @@
 using UnityEngine;
 using Viador.Events;
 using Viador.Game;
+using Viador.Map;
 
 namespace Viador.Character
 {
     public class CharacterAttackScript : MonoBehaviour
     {
-        private static readonly Vector2 sizeOfBoxCollider = Vector2.one;
+        [SerializeField] private GridController _gridController;
+
+        private static readonly Vector2 sizeOfBoxCollider = new Vector2(0.3f,0.3f);
 
         private LayerMask _includeLayer;
 
@@ -20,6 +23,13 @@ namespace Viador.Character
 
         void Start()
         {
+            _gridController = GameObject.Find("Grid").GetComponent<GridController>();
+
+            if (_gridController is null)
+            {
+                throw new NullReferenceException("No GridController found");
+            }
+
             if (characterData is null)
             {
                 throw new NullReferenceException("No Character data found");
@@ -30,11 +40,11 @@ namespace Viador.Character
         {
             if (TurnManager._currentPlayer.Equals(name))
             {
-                Debug.Log($"[Sender]: {name} [Health points of {sender}]: {hp}");
+                Debug.Log($"[Attacker name]: {name} [Health points of {sender}]: {hp}");
 
                 int calculateDamage = (int)hp - characterData.attack;
 
-                Debug.Log($"[Sender's attack power is]: {characterData.attack} [Remaining health points of player 2 is]: {calculateDamage}");
+                Debug.Log($"[Attacker's attack power is]: {characterData.attack} [Remaining health points of player 2 is]: {calculateDamage}");
 
                 GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, calculateDamage);
             }
@@ -45,7 +55,7 @@ namespace Viador.Character
             Debug.Log($"OnCharacterDefensed: {name}");
             if (sender.name.Equals(name))
             {
-                Debug.Log($"[Sender]: {sender} [Health points lost of player 2]: {healthLost}");
+                Debug.Log($"[Attacker]: {sender} [Health points lost of player 2]: {healthLost}");
                 int updateHP = characterData.defense + (int)healthLost;
 
                 Debug.Log($"[player 2 defense is]: {characterData.defense}, so the health points is: {updateHP}");
@@ -68,6 +78,8 @@ namespace Viador.Character
                 GameEventProvider.Get(GameEvents.CharacterChoosenToAttack).
                     Trigger(this, characterData.health);
                 GameEventProvider.Get(GameEvents.CharacterMoved).Trigger(this, null);
+
+                _gridController.ResetHighlight();
             }
         }
     }

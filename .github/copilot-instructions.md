@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Character, Water, UI, Player, Enemy, AttackHighlight
 - Active game object:
-  - Name: Player2
+  - Name: Dracon
   - Tag: Character
   - Layer: Character
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
