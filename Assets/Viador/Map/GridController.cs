@@ -5,12 +5,14 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using Viador.Character;
+using Viador.Game;
 
 namespace Viador.Map
 {
     public class GridController : MonoBehaviour
     {
-        private static readonly Vector2 sizeOfBoxCollider = new(0.5f, 0.5f);
+        private static readonly Vector2 sizeOfBoxCollider = new(0.15f, 0.15f);
+        private LayerMask _includeLayer;
 
         [SerializeField] private Tile highlightTile;
         [SerializeField] private Tile attackHighlightTile;
@@ -21,16 +23,10 @@ namespace Viador.Map
         private Tilemap _AttackhighlightTilemap;
         private Tilemap _obstacleTilemap;
 
-        Vector2 halfSize = Vector2.one;
-
-        Vector3 topLeft = Vector2.one;
-        Vector3 topRight = Vector2.one;
-        Vector3 bottomLeft = Vector2.one;
-        Vector3 bottomRight = Vector2.one;
-
         void Awake()
         {
             _grid = GetComponent<Grid>();
+            _includeLayer = LayerMask.GetMask("Character");
 
             if (_grid == null)
             {
@@ -81,6 +77,7 @@ namespace Viador.Map
         private void SetPerimeterTiles(Vector3Int charTilePos, Tile highlightTile)
         {
             Debug.Log($"tile original pos {_grid.CellToWorld(charTilePos)}");
+
             SetTile(charTilePos + Vector3Int.up + Vector3Int.left, highlightTile);
             SetTile(charTilePos + Vector3Int.up, highlightTile);
             SetTile(charTilePos + Vector3Int.up + Vector3Int.right, highlightTile);
@@ -91,46 +88,28 @@ namespace Viador.Map
             SetTile(charTilePos + Vector3Int.down + Vector3Int.right, highlightTile);
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawLine(topLeft, topRight);
-            Gizmos.DrawLine(topRight, bottomRight);
-            Gizmos.DrawLine(bottomRight, bottomLeft);
-            Gizmos.DrawLine(bottomLeft, topLeft);
-            Gizmos.color = Color.yellow;
-        }
-
-        void DrawOverlapBox(Vector2 center, Vector2 size)
-        {
-            Vector2 halfSize = size;
-
-             topLeft = center + new Vector2(-halfSize.x, halfSize.y);
-             topRight = center + new Vector2(halfSize.x, halfSize.y);
-             bottomLeft = center + new Vector2(-halfSize.x, -halfSize.y);
-             bottomRight = center + new Vector2(halfSize.x, -halfSize.y);
-        }
-
         private void SetTile(Vector3Int tileCoordinate, Tile tile)
         {
-            if (IsOnBoard(tileCoordinate) && !IsBlocked(tileCoordinate))
+            Vector2 tileWorldPosition = _grid.GetCellCenterWorld(tileCoordinate);
+
+            if (IsOnBoard(tileCoordinate))
             {
-                Vector2 tileWorldPosition = _grid.CellToWorld(tileCoordinate);
-
-
-             //   tileWorldPosition.Set(tileCoordinate.x, tileCoordinate.y);
-
-                if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, LayerMask.GetMask("Character")) is Collider2D enemy)
-                {
-                    DrawOverlapBox(tileWorldPosition, sizeOfBoxCollider);
-                    Debug.Log($"Character name: {enemy.name} with pos: {enemy.transform.position} standing at {tileWorldPosition}");
-               //     enemy.transform.position = _grid.WorldToCell(enemy.transform.position);
-                //    tileCoordinate = new Vector3Int((int)enemy.transform.position.x, (int)enemy.transform.position.y);
-               //     _AttackhighlightTilemap.SetTile(new Vector3Int((int)enemy.transform.position.x, (int)enemy.transform.position.y), attackHighlightTile);
-                   _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
+                if (!IsBlocked(tileCoordinate))
+                { 
+                    _MovehighlightTilemap.SetTile(tileCoordinate, tile);
                 }
-                else
+                else // It is a blocked tile, must be an enemy there...
                 {
-                  _MovehighlightTilemap.SetTile(tileCoordinate, tile);
+                    if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, _includeLayer) is Collider2D character)
+                    {
+                        if (TurnManager._currentPlayer != character.name)
+                        {
+                            Debug.Log($"{_grid.WorldToCell(tileWorldPosition)} = {tileCoordinate}");
+                            Debug.Log($"Character name: {character.name} with pos: {character.transform.position}");
+
+                            _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
+                        }
+                    }
                 }
             }
         }
