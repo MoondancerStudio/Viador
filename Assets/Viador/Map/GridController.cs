@@ -11,8 +11,8 @@ namespace Viador.Map
 {
     public class GridController : MonoBehaviour
     {
-        private static readonly Vector2 sizeOfBoxCollider = new(0.15f, 0.15f);
-        private LayerMask _includeLayer;
+        private static readonly Vector2 sizeOfBoxCollider = new(0.5f, 0.5f);
+        private static readonly Color highLightedTileColor = new Color(12, 56, 147, 0.5f);
 
         [SerializeField] private Tile highlightTile;
         [SerializeField] private Tile attackHighlightTile;
@@ -22,11 +22,11 @@ namespace Viador.Map
         private Tilemap _MovehighlightTilemap;
         private Tilemap _AttackhighlightTilemap;
         private Tilemap _obstacleTilemap;
+        private LayerMask _includeLayer;
 
         void Awake()
         {
             _grid = GetComponent<Grid>();
-            _includeLayer = LayerMask.GetMask("Character");
 
             if (_grid == null)
             {
@@ -53,13 +53,15 @@ namespace Viador.Map
             {
                 throw new NullReferenceException("No Highlight Tilemap found");
             }
-            
+
             _obstacleTilemap = GameObject.Find("ObstacleTilemap").GetComponent<Tilemap>();
 
             if (_obstacleTilemap == null)
             {
                 throw new NullReferenceException("No Obstacle Tilemap found");
             }
+
+            _includeLayer = LayerMask.GetMask("Character");
         }
 
         private void OnMouseDown()
@@ -102,13 +104,8 @@ namespace Viador.Map
                 {
                     if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, _includeLayer) is Collider2D character)
                     {
-                        if (TurnManager._currentPlayer != character.name)
-                        {
-                            Debug.Log($"{_grid.WorldToCell(tileWorldPosition)} = {tileCoordinate}");
-                            Debug.Log($"Character name: {character.name} with pos: {character.transform.position}");
-
-                            _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
-                        }
+                        Debug.Log($"Character name: {character.name} with pos: {character.transform.position}");
+                        _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
                     }
                 }
             }
@@ -118,6 +115,7 @@ namespace Viador.Map
         {
             return _obstacleTilemap.GetTile(tileCoordinate) is not null;
         }
+
 
         private bool IsOnBoard(Vector3Int tileCoordinate)
         {
@@ -138,7 +136,7 @@ namespace Viador.Map
             
             _obstacleTilemap.SetTile(oldGridPosition, null);
             Tile tile = ScriptableObject.CreateInstance<Tile>();
-            tile.color = new Color(12, 56, 147, 0.5f); // FIXME
+            tile.color = highLightedTileColor;
             _obstacleTilemap.SetTile(newGridPosition, tile);
         }
     }
