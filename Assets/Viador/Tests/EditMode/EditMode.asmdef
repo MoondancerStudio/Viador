@@ -3,7 +3,8 @@
     "rootNamespace": "Viador.Tests.EditMode",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Viador"
     ],
     "includePlatforms": [
         "Editor"
