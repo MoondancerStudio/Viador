@@ -58,10 +58,5 @@ namespace Viador.Game
             Debug.Log("Action points:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
-
-        public void OnGameOver(string message)
-        {
-            Debug.Log($"[The loser of the match]: {message}");
-        }
     }
 }

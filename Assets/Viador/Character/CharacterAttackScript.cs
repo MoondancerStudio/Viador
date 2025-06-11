@@ -82,11 +82,18 @@ namespace Viador.Character
                 // Update hp
                 characterData.health = (int)updateHP;
 
-                if(updateHP <= 0)
-                    GameEventProvider.Get(GameEvents.GameOver).Trigger(this, sender.name);
-
                 // Send to UI
-                GameEventProvider.Get(GameEvents.UIStateUpdated).Trigger(sender, updateHP);
+                if (updateHP <= 0)
+                {
+                    updateHP = 0;
+                    GameEventProvider.Get(GameEvents.GameOver).Trigger(this, null);
+                }
+
+
+                if (name == "Dracon")
+                    GameEventProvider.Get(GameEvents.Player_1_HealthPointUpdated).Trigger(this, updateHP);
+                else
+                    GameEventProvider.Get(GameEvents.Player_2_HealthPointUpdated).Trigger(this, updateHP);
             }
         }
 

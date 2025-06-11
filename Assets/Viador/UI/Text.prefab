@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 7248959167739780300}
   - component: {fileID: 3683568078154304042}
   - component: {fileID: 3828573179137805596}
-  - component: {fileID: 4650771502627304066}
-  - component: {fileID: 3757062016474757798}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -136,46 +134,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4650771502627304066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737684394155768510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f763534ab4bef3f4ebff062722222d2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textField: {fileID: 0}
---- !u!114 &3757062016474757798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737684394155768510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEventName: NextTurn
-  gameEvent: {fileID: 0}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4650771502627304066}
-        m_TargetAssemblyTypeName: Viador.Scenes.Sandboxes.EventFlow.TextController,
-          Assembly-CSharp
-        m_MethodName: OnTextOverwrite
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
