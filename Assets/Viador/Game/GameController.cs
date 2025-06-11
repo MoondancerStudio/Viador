@@ -22,6 +22,9 @@ namespace Viador.Game
             
             _turnManager = new TurnManager(_players);
             Debug.Log($"[{gameObject.name}] awaken");
+
+            GameEventProvider.Get(GameEvents.Player_2_HealthPointUpdated).Trigger(this, characterData[0].health);
+            GameEventProvider.Get(GameEvents.Player_1_HealthPointUpdated).Trigger(this, characterData[1].health);
         }
 
         private void Start()
@@ -39,14 +42,6 @@ namespace Viador.Game
         public void OnMoved(Component caller, object payload)
         {
             _turnManager.OnMoved();
-        }
-
-        public void OnGameOver(Component caller, object payload)
-        {
-            if (payload is string playerName)
-            {
-                _turnManager.OnGameOver(playerName);
-            }
         }
     }
 }
