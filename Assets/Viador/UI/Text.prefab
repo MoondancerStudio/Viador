@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7248959167739780300}
   - component: {fileID: 3683568078154304042}
   - component: {fileID: 3828573179137805596}
+  - component: {fileID: 132444125441179756}
+  - component: {fileID: 1432139941557608209}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -134,3 +136,44 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &132444125441179756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2737684394155768510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: 
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1432139941557608209}
+        m_TargetAssemblyTypeName: Viador.UI.TextController, Viador
+        m_MethodName: OnTextOverwrite
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1432139941557608209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2737684394155768510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f763534ab4bef3f4ebff062722222d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
