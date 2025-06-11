@@ -600,6 +600,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9049234430313748797}
     m_Modifications:
+    - target: {fileID: 132444125441179756, guid: 13efeec3b6d1ac943bae997bf6ce49f8, type: 3}
+      propertyPath: gameEventName
+      value: PlayerUpdated
+      objectReference: {fileID: 0}
     - target: {fileID: 2737684394155768510, guid: 13efeec3b6d1ac943bae997bf6ce49f8, type: 3}
       propertyPath: m_Name
       value: Text
@@ -1876,6 +1880,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1777036423}
     m_Modifications:
+    - target: {fileID: 132444125441179756, guid: 13efeec3b6d1ac943bae997bf6ce49f8, type: 3}
+      propertyPath: gameEventName
+      value: TurnStarted
+      objectReference: {fileID: 0}
     - target: {fileID: 2737684394155768510, guid: 13efeec3b6d1ac943bae997bf6ce49f8, type: 3}
       propertyPath: m_Name
       value: Text
@@ -2252,6 +2260,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1271729319}
     m_Modifications:
+    - target: {fileID: 132444125441179756, guid: 13efeec3b6d1ac943bae997bf6ce49f8, type: 3}
+      propertyPath: gameEventName
+      value: ActionPointsUpdated
+      objectReference: {fileID: 0}
     - target: {fileID: 2737684394155768510, guid: 13efeec3b6d1ac943bae997bf6ce49f8, type: 3}
       propertyPath: m_Name
       value: Text
