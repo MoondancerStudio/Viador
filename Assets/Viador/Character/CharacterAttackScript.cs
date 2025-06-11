@@ -36,15 +36,34 @@ namespace Viador.Character
             }
         }
 
+        public float calculateAttack(CharacterData enemyStat)
+        {
+            // Dice rolls
+            int d10_1 = UnityEngine.Random.Range(1, enemyStat.attack);
+            int d10_2 = UnityEngine.Random.Range(1, enemyStat.attack);
+
+            float damageScore = (characterData.attack + d10_1) - (enemyStat.defense + d10_2);
+         
+            if (damageScore > 0)
+            {
+                return damageScore / 2;
+            }
+            return 0;
+        }
+
         public void OnCharacterDamaged(Component sender, object hp)
         {
             if (TurnManager._currentPlayer.Equals(name))
             {
-                Debug.Log($"[Attacker name]: {name} [Health points of {sender}]: {hp}");
+                float enemyHealthPoint = float.Parse(hp.ToString());
+                Debug.Log($"[Attacker name]: {name} [Health points of {sender.name}]: {enemyHealthPoint.ToString()}");
 
-                int calculateDamage = (int)hp - characterData.attack;
+                CharacterData characterData = (sender as CharacterAttackScript).characterData;
 
-                Debug.Log($"[Attacker's attack power is]: {characterData.attack} [Remaining health points of player 2 is]: {calculateDamage}");
+                float getRandomDamageScore = calculateAttack(characterData);
+                float calculateDamage = enemyHealthPoint - getRandomDamageScore;
+
+                Debug.Log($"[Attacker's attack power is]: {characterData.attack} and the [random damaga score]: {getRandomDamageScore} [Remaining health points of player 2 is]: {calculateDamage}");
 
                 GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, calculateDamage);
             }
@@ -52,16 +71,19 @@ namespace Viador.Character
 
         public void OnCharacterDefensed(Component sender, object healthLost)
         {
-            Debug.Log($"OnCharacterDefensed: {name}");
             if (sender.name.Equals(name))
             {
-                Debug.Log($"[Attacker]: {sender} [Health points lost of player 2]: {healthLost}");
-                int updateHP = characterData.defense + (int)healthLost;
+                float enemyHealthPoint = float.Parse(healthLost.ToString());
+                Debug.Log($"[Attacker]: {sender.name} [Health points lost of player {name}]: {enemyHealthPoint}");
+                float updateHP =  enemyHealthPoint;
 
-                Debug.Log($"[player 2 defense is]: {characterData.defense}, so the health points is: {updateHP}");
+                Debug.Log($"{name}'s defense is]: {characterData.defense}, so the health points is: {updateHP}");
 
                 // Update hp
-                characterData.health = updateHP;
+                characterData.health = (int)updateHP;
+
+                if(updateHP <= 0)
+                    GameEventProvider.Get(GameEvents.GameOver).Trigger(this, sender.name);
 
                 // Send to UI
                 GameEventProvider.Get(GameEvents.UIStateUpdated).Trigger(sender, updateHP);
@@ -75,11 +97,12 @@ namespace Viador.Character
             {
                 Debug.Log($"Start attack on {name}");
 
+                _gridController.ResetHighlight();
+
                 GameEventProvider.Get(GameEvents.CharacterChoosenToAttack).
                     Trigger(this, characterData.health);
                 GameEventProvider.Get(GameEvents.CharacterMoved).Trigger(this, null);
 
-                _gridController.ResetHighlight();
             }
         }
     }

@@ -40,5 +40,13 @@ namespace Viador.Game
         {
             _turnManager.OnMoved();
         }
+
+        public void OnGameOver(Component caller, object payload)
+        {
+            if (payload is string playerName)
+            {
+                _turnManager.OnGameOver(playerName);
+            }
+        }
     }
 }

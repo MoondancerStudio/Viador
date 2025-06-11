@@ -6,9 +6,9 @@
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Enemy, Character
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Character, Water, UI, Player, Enemy, AttackHighlight
+    - Default, TransparentFX, Ignore Raycast, AttackHighlight, Water, UI, Player, Enemy, Character
 - Active game object:
-  - Name: Dracon
-  - Tag: Character
-  - Layer: Character
+  - Name: ActionPoints
+  - Tag: Untagged
+  - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

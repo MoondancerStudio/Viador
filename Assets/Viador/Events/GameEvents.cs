@@ -3,6 +3,7 @@ namespace Viador.Events
     public class GameEvents
     {
         public static readonly string StartGame = "StartGame";
+        public static readonly string GameOver = "GameOver";
         public static readonly string NextTurn = "NextTurn";
         public static readonly string TurnStarted = "TurnStarted";
         public static readonly string PlayerUpdated = "PlayerUpdated";

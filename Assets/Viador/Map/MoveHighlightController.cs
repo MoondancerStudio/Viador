@@ -11,7 +11,6 @@ namespace Viador.Map
     {
         private static readonly Vector3 RectangleGridOffset = new(0.5f, 0.5f, 0);
         private static readonly Vector3 IsometricGridOffset = new(0, 0.25f, 0);
-        private List<Vector3> x;
         public IUnityService UnityService; // Public for testing
         
         [SerializeField] GameEvent selectMoveEvent;
@@ -71,8 +70,8 @@ namespace Viador.Map
 
         private void EnableTilemapInteractions(bool value)
         {
-            this.gameObject.GetComponent<TilemapRenderer>().enabled = value;
-            this.gameObject.GetComponent<TilemapCollider2D>().enabled = value;
+            GetComponent<TilemapRenderer>().enabled = value;
+            GetComponent<TilemapCollider2D>().enabled = value;
         }
     }
 }
