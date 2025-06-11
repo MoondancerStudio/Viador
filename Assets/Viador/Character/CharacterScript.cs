@@ -22,6 +22,8 @@ namespace Viador.Character
                         attack = characterData.attack,
                         defense = characterData.defense,
                     };
+
+            GameEventProvider.Get(GameEvents.UIStateUpdated).Trigger(this, characterData.health);
         }
     }
 }

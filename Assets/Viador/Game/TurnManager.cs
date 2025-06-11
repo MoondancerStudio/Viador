@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Viador.Events;
 
 namespace Viador.Game
@@ -54,7 +55,13 @@ namespace Viador.Game
             }
             
             _actionPoints -= 1;
+            Debug.Log("Action points:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
+        }
+
+        public void OnGameOver(string message)
+        {
+            Debug.Log($"[The loser of the match]: {message}");
         }
     }
 }
