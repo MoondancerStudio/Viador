@@ -1,6 +1,4 @@
 using NUnit.Framework;
-using UnityEngine;
-using Viador.Character;
 using Viador.GameMechanics;
 
 namespace Viador.Tests.EditMode
@@ -14,14 +12,12 @@ namespace Viador.Tests.EditMode
         public void CalculateAttackShouldReturnMiss()
         {
             // GIVEN
-            CharacterData attacker = ScriptableObject.CreateInstance<CharacterData>();
-            attacker.attack = 10;
-            CharacterData defender = ScriptableObject.CreateInstance<CharacterData>();
-            defender.defense = 20;
+            int attackValue = 10;
+            int defenseValue = 20;
             Dice mockDice = new MockDice();
             
             // WHEN
-            var actual = _underTest.CalculateAttack(attacker, defender, mockDice);
+            var actual = _underTest.CalculateAttack(attackValue, defenseValue, mockDice);
             
             // THEN
             Assert.IsNotNull(actual);
@@ -33,14 +29,12 @@ namespace Viador.Tests.EditMode
         public void CalculateAttackShouldReturnHit()
         {
             // GIVEN
-            CharacterData attacker = ScriptableObject.CreateInstance<CharacterData>();
-            attacker.attack = 20;
-            CharacterData defender = ScriptableObject.CreateInstance<CharacterData>();
-            defender.defense = 10;
+            int attackValue = 20;
+            int defenseValue = 10;
             Dice mockDice = new MockDice();
             
             // WHEN
-            var actual = _underTest.CalculateAttack(attacker, defender, mockDice);
+            var actual = _underTest.CalculateAttack(attackValue, defenseValue, mockDice);
             
             // THEN
             Assert.IsNotNull(actual);
