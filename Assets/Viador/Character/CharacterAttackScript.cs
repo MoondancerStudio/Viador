@@ -2,6 +2,7 @@
 using UnityEngine;
 using Viador.Events;
 using Viador.Game;
+using Viador.GameMechanics;
 using Viador.Map;
 
 namespace Viador.Character
@@ -15,6 +16,8 @@ namespace Viador.Character
         private LayerMask _includeLayer;
 
         public CharacterData characterData;
+
+        private CombatLogic _underTest = new();
 
         void Awake()
         {
@@ -58,14 +61,19 @@ namespace Viador.Character
                 float enemyHealthPoint = float.Parse(hp.ToString());
                 Debug.Log($"[Attacker name]: {name} [Health points of {sender.name}]: {enemyHealthPoint.ToString()}");
 
-                CharacterData characterData = (sender as CharacterAttackScript).characterData;
+                CharacterData DefenderCharacterData = (sender as CharacterAttackScript).characterData;
 
-                float getRandomDamageScore = calculateAttack(characterData);
-                float calculateDamage = enemyHealthPoint - getRandomDamageScore;
+                AttackResult attackResult = _underTest.CalculateAttack(characterData.attack, DefenderCharacterData.defense, new Dice());
+                float calculateDamage = enemyHealthPoint - attackResult.Damage;
 
-                Debug.Log($"[Attacker's attack power is]: {characterData.attack} and the [random damaga score]: {getRandomDamageScore} [Remaining health points of player 2 is]: {calculateDamage}");
+                Debug.Log($"[Attacker's attack power is]: {characterData.attack} and the [random damaga score]: {attackResult.Damage} [Remaining health points of player 2 is]: {calculateDamage}");
 
                 GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, calculateDamage);
+
+
+                string attackResultMessage = attackResult.Success ? $" -{attackResult.Damage} hp" : "Miss";
+
+                GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, attackResultMessage);
             }
         }
 
