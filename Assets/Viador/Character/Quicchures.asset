@@ -22,6 +22,6 @@ MonoBehaviour:
   move: 5
   attack: 42
   defense: 36
-  health: 100
-  armor: 10
+  health: 4
+  armor: 4
   armorStructure: 04000000040000000400000004000000
