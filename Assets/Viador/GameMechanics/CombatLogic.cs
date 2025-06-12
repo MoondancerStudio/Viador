@@ -1,13 +1,11 @@
-using Viador.Character;
-
 namespace Viador.GameMechanics
 {
     public class CombatLogic
     {
-        public AttackResult CalculateAttack(CharacterData attacker, CharacterData defender, Dice dice)
+        public AttackResult CalculateAttack(int attackValue, int defenseValue, Dice dice)
         {
             AttackResult result;
-            int effectiveAttack = (attacker.attack + dice.Roll()) - (defender.defense + dice.Roll());
+            int effectiveAttack = (attackValue + dice.Roll()) - (defenseValue + dice.Roll());
 
             if (effectiveAttack > 1)
             {
