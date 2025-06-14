@@ -70,30 +70,28 @@ namespace Viador.Character
 
                 AttackResult attackResult = _combatLogic.CalculateAttack(_combatLogic.CalculateAttackValue(characterData), baseDefenseValue, new Dice());
 
-                HandleAttackResult(sender, attackResult);
-
                 ShowAttackResult(attackResult);
+
+                HandleAttackResult(sender, attackResult);
             }
+        }
+
+        private void ShowAttackResult(AttackResult attackResult)
+        {
+            var message = attackResult.Success ? "Hit" : "Miss";
+            GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, message);
         }
 
         private void HandleAttackResult(Component sender, AttackResult attackResult)
         {
             if (attackResult.Success)
             {
-                Debug.Log($"{name} attacked successfully with raw a damage of {attackResult.Damage}");
+                Debug.Log($"{name} attacked successfully with a raw damage of {attackResult.Damage}");
                 GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, attackResult.Damage);
             }
             else
             {
                 Debug.Log($"{name} missed the attack");
-            }
-        }
-
-        private void ShowAttackResult(AttackResult attackResult)
-        {
-            if (!attackResult.Success)
-            {
-                GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, "Miss");
             }
         }
 
@@ -103,15 +101,17 @@ namespace Viador.Character
             {
                 int rawDamage = int.Parse(rawDamageRaw.ToString());
                 int damage = _combatLogic.HandleDamage(rawDamage, characterData.armor);
+                
                 Debug.Log($"{name} received {damage} effective damage");
+                Debug.Log($"{name} has {characterData.health} health");
 
                 // Update hp
-                characterData.health = characterData.health - damage;
+                var newHealth = characterData.health - damage;
+                characterData.health = newHealth;
                 
-                if (damage > 0)
-                {
-                    GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, $"Hit (-{damage} hp)");
-                }
+                Debug.Log($"{name} new health {characterData.health}");
+                
+                GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, $"Hit (-{damage} hp)");
                 
                 UpdateHpHighlight();
                 HandleCharacterDeath();
