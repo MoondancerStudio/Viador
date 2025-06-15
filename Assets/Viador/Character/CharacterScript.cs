@@ -15,13 +15,7 @@ namespace Viador.Character
         {
             gameObject.name = characterData.name;
             gameObject.GetComponent<SpriteRenderer>().sprite = characterData.icon;
-            gameObject.GetComponent<CharacterAttackScript>()
-                .characterData = new CharacterData
-                    { 
-                        health = characterData.health,
-                        attack = characterData.attack,
-                        defense = characterData.defense,
-                    };
+            gameObject.GetComponent<CharacterAttackScript>().characterData = characterData;
         }
     }
 }

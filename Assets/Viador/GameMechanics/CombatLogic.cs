@@ -1,3 +1,6 @@
+using UnityEngine;
+using Viador.Character;
+
 namespace Viador.GameMechanics
 {
     public class CombatLogic
@@ -5,7 +8,11 @@ namespace Viador.GameMechanics
         public AttackResult CalculateAttack(int attackValue, int defenseValue, Dice dice)
         {
             AttackResult result;
-            int effectiveAttack = (attackValue + dice.Roll()) - (defenseValue + dice.Roll());
+            var attackRoll = dice.Roll();
+            var defenseRoll = dice.Roll();
+            Debug.Log($"Attack calculation: {attackValue + attackRoll} ({attackValue} + {attackRoll}) vs {defenseValue + defenseRoll} ({defenseValue} + {defenseRoll})");
+            
+            int effectiveAttack = (attackValue + attackRoll) - (defenseValue + defenseRoll);
 
             if (effectiveAttack > 1)
             {
@@ -17,6 +24,24 @@ namespace Viador.GameMechanics
             }
 
             return result;
+        }
+
+        public int HandleDamage(int rawDamage, int armor)
+        {
+            var calculatedDamage = rawDamage - armor;
+            var damage = calculatedDamage < 0 ? 0 : calculatedDamage;
+            Debug.Log($"Damage handling: {damage} ({rawDamage} - {armor})");
+            return damage;
+        }
+
+        public int CalculateDefenseValue(CharacterData characterData)
+        {
+            return characterData.defense;
+        }
+
+        public int CalculateAttackValue(CharacterData characterData)
+        {
+            return characterData.attack;
         }
     }
 

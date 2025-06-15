@@ -17,7 +17,7 @@ namespace Viador.Character
 
         public CharacterData characterData;
 
-        private CombatLogic _underTest = new();
+        private CombatLogic _combatLogic = new();
 
         void Awake()
         {
@@ -39,72 +39,9 @@ namespace Viador.Character
             }
         }
 
-        public float calculateAttack(CharacterData enemyStat)
-        {
-            // Dice rolls
-            int d10_1 = UnityEngine.Random.Range(1, enemyStat.attack);
-            int d10_2 = UnityEngine.Random.Range(1, enemyStat.attack);
-
-            float damageScore = (characterData.attack + d10_1) - (enemyStat.defense + d10_2);
-         
-            if (damageScore > 0)
-            {
-                return damageScore / 2;
-            }
-            return 0;
-        }
-
-        public void OnCharacterDamaged(Component sender, object hp)
-        {
-            if (TurnManager._currentPlayer.Equals(name))
-            {
-                float enemyHealthPoint = float.Parse(hp.ToString());
-                Debug.Log($"[Attacker name]: {name} [Health points of {sender.name}]: {enemyHealthPoint.ToString()}");
-
-                CharacterData DefenderCharacterData = (sender as CharacterAttackScript).characterData;
-
-                AttackResult attackResult = _underTest.CalculateAttack(characterData.attack, DefenderCharacterData.defense, new Dice());
-                float calculateDamage = enemyHealthPoint - attackResult.Damage;
-
-                Debug.Log($"[Attacker's attack power is]: {characterData.attack} and the [random damaga score]: {attackResult.Damage} [Remaining health points of player 2 is]: {calculateDamage}");
-
-                GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, calculateDamage);
-
-
-                string attackResultMessage = attackResult.Success ? $" -{attackResult.Damage} hp" : "Miss";
-
-                GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, attackResultMessage);
-            }
-        }
-
-        public void OnCharacterDefensed(Component sender, object healthLost)
-        {
-            if (sender.name.Equals(name))
-            {
-                float enemyHealthPoint = float.Parse(healthLost.ToString());
-                Debug.Log($"[Attacker]: {sender.name} [Health points lost of player {name}]: {enemyHealthPoint}");
-                float updateHP =  enemyHealthPoint;
-
-                Debug.Log($"{name}'s defense is]: {characterData.defense}, so the health points is: {updateHP}");
-
-                // Update hp
-                characterData.health = (int)updateHP;
-
-                // Send to UI
-                if (updateHP <= 0)
-                {
-                    updateHP = 0;
-                    GameEventProvider.Get(GameEvents.GameOver).Trigger(this, null);
-                }
-
-
-                if (name == "Dracon")
-                    GameEventProvider.Get(GameEvents.Player_1_HealthPointUpdated).Trigger(this, updateHP);
-                else
-                    GameEventProvider.Get(GameEvents.Player_2_HealthPointUpdated).Trigger(this, updateHP);
-            }
-        }
-
+        /**
+         * Select target
+         */
         private void OnMouseDown()
         {
             Debug.Log($"Current player is: {TurnManager._currentPlayer}");
@@ -114,10 +51,96 @@ namespace Viador.Character
 
                 _gridController.ResetHighlight();
 
+                // Trigger attack calculation
                 GameEventProvider.Get(GameEvents.CharacterChoosenToAttack).
-                    Trigger(this, characterData.health);
+                    Trigger(this, _combatLogic.CalculateDefenseValue(characterData));
+                
+                // Trigger action point update
                 GameEventProvider.Get(GameEvents.CharacterMoved).Trigger(this, null);
 
+            }
+        }
+        
+        // Executing attack
+        public void OnCharacterDamaged(Component sender, object baseDefenseValueRaw)
+        {
+            if (TurnManager._currentPlayer.Equals(name))
+            {
+                int baseDefenseValue = int.Parse(baseDefenseValueRaw.ToString());
+
+                AttackResult attackResult = _combatLogic.CalculateAttack(_combatLogic.CalculateAttackValue(characterData), baseDefenseValue, new Dice());
+
+                ShowAttackResult(attackResult);
+
+                HandleAttackResult(sender, attackResult);
+            }
+        }
+
+        private void ShowAttackResult(AttackResult attackResult)
+        {
+            var message = attackResult.Success ? "Hit" : "Miss";
+            GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, message);
+        }
+
+        private void HandleAttackResult(Component sender, AttackResult attackResult)
+        {
+            if (attackResult.Success)
+            {
+                Debug.Log($"{name} attacked successfully with a raw damage of {attackResult.Damage}");
+                GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, attackResult.Damage);
+            }
+            else
+            {
+                Debug.Log($"{name} missed the attack");
+            }
+        }
+
+        public void OnCharacterDefensed(Component sender, object rawDamageRaw)
+        {
+            if (sender.name.Equals(name))
+            {
+                int rawDamage = int.Parse(rawDamageRaw.ToString());
+                int damage = _combatLogic.HandleDamage(rawDamage, characterData.armor);
+                
+                Debug.Log($"{name} received {damage} effective damage");
+                Debug.Log($"{name} has {characterData.health} health");
+
+                // Update hp
+                var newHealth = characterData.health - damage;
+                characterData.health = newHealth;
+                
+                Debug.Log($"{name} new health {characterData.health}");
+                
+                GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, $"Hit (-{damage} hp)");
+                
+                UpdateHpHighlight();
+                HandleCharacterDeath();
+            }
+        }
+
+        private void UpdateHpHighlight()
+        {
+            Debug.Log($"Health {characterData.health}");
+            string eventToTrigger;
+                    
+            if (name == "Dracon")
+            {
+                eventToTrigger = GameEvents.Player_1_HealthPointUpdated;
+            }
+            else
+            {
+                eventToTrigger = GameEvents.Player_2_HealthPointUpdated;
+            }
+
+            GameEventProvider.Get(eventToTrigger).Trigger(this, characterData.health);
+        }
+        
+        private void HandleCharacterDeath()
+        {
+            if (characterData.health <= 0)
+            {
+                characterData.health = 0;
+                GameEventProvider.Get(GameEvents.GameOver).Trigger(this, null);
             }
         }
     }
