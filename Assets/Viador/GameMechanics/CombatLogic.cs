@@ -5,13 +5,15 @@ namespace Viador.GameMechanics
 {
     public class CombatLogic
     {
+        public static bool IsAttackBegin = false;
+
         public AttackResult CalculateAttack(int attackValue, int defenseValue, Dice dice)
         {
             AttackResult result;
             var attackRoll = dice.Roll();
             var defenseRoll = dice.Roll();
             Debug.Log($"Attack calculation: {attackValue + attackRoll} ({attackValue} + {attackRoll}) vs {defenseValue + defenseRoll} ({defenseValue} + {defenseRoll})");
-            
+
             int effectiveAttack = (attackValue + attackRoll) - (defenseValue + defenseRoll);
 
             if (effectiveAttack > 1)

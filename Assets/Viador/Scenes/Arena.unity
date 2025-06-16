@@ -4492,14 +4492,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEventName: GameOver
+  gameEventName: CharacterAttacked
   gameEvent: {fileID: 0}
   response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1764694420}
         m_TargetAssemblyTypeName: Viador.Game.GameController, Viador
-        m_MethodName: OnGameOver
+        m_MethodName: OnAttacked
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

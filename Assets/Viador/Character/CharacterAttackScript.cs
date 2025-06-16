@@ -51,12 +51,17 @@ namespace Viador.Character
 
                 _gridController.ResetHighlight();
 
+                // Check if the attack has already been launched by someone
+                // Set it true if nobodoy has started the fight
+                if(!CombatLogic.IsAttackBegin)
+                    CombatLogic.IsAttackBegin = true;
+
                 // Trigger attack calculation
                 GameEventProvider.Get(GameEvents.CharacterChoosenToAttack).
                     Trigger(this, _combatLogic.CalculateDefenseValue(characterData));
                 
                 // Trigger action point update
-                GameEventProvider.Get(GameEvents.CharacterMoved).Trigger(this, null);
+                GameEventProvider.Get(GameEvents.CharacterAttacked).Trigger(this, null);
 
             }
         }
@@ -108,11 +113,11 @@ namespace Viador.Character
                 // Update hp
                 var newHealth = characterData.health - damage;
                 characterData.health = newHealth;
-                
+
                 Debug.Log($"{name} new health {characterData.health}");
-                
+
                 GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, $"Hit (-{damage} hp)");
-                
+
                 UpdateHpHighlight();
                 HandleCharacterDeath();
             }

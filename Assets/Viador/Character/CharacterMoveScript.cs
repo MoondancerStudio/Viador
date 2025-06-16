@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Viador.Events;
+using Viador.GameMechanics;
 using Viador.Map;
 
 namespace Viador.Character
