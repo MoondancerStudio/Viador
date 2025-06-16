@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Viador.Events;
+using Viador.GameMechanics;
 
 namespace Viador.Game
 {
@@ -53,9 +54,30 @@ namespace Viador.Game
             {
                 throw new InvalidOperationException("Cannot move when there is no action point");
             }
-            
+
             _actionPoints -= 1;
-            Debug.Log("Action points:" + _actionPoints);
+
+            // If the attack is on-going, then it costs 2 to move away, otherwise 1
+            if (CombatLogic.IsAttackBegin)
+            {
+                CombatLogic.IsAttackBegin = false;
+                _actionPoints -= 2;
+            }
+
+            Debug.Log("Action points after move:" + _actionPoints);
+            GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
+        }
+
+        public void OnAttacked()
+        {
+            if (_currentTurn < 0)
+            {
+                throw new InvalidOperationException("Cannot attack when there is no action point");
+            }
+
+            _actionPoints -= 2;
+       
+            Debug.Log("Action points after attack:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
     }

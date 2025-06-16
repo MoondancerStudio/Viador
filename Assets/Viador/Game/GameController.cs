@@ -43,5 +43,10 @@ namespace Viador.Game
         {
             _turnManager.OnMoved();
         }
+
+        public void OnAttacked(Component caller, object payload)
+        {
+            _turnManager.OnAttacked();
+        }
     }
 }

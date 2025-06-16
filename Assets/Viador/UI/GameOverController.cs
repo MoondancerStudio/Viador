@@ -10,7 +10,6 @@ namespace Viador.UI
         public void OnGameOver(Component sender, object payload)
         {
             transform.Find("Panel").gameObject.SetActive(true);
-            Time.timeScale = 0;
         }
     }
 }
