@@ -31,6 +31,9 @@ namespace Viador.GameMechanics
                 result = new AttackResult(false, 0);
             }
 
+            //Clear the content of the list, where payment is occured
+            actionStateProvider.removeAllActivatedActionStates();
+
             return result;
         }
 

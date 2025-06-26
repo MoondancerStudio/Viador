@@ -12,6 +12,8 @@ namespace Viador.Action
         public int getActionStateDefense();
         public int getActionStateAttack();
         public bool isActionStateListEmpty();
+
+        public void removeAllActivatedActionStates();
     }
 
     public class ActionStateProvider : IActionStateProvider
@@ -47,6 +49,11 @@ namespace Viador.Action
         public int getActionStateDefense()
         {
             return 0;
+        }
+
+        public void removeAllActivatedActionStates()
+        {
+            feats.RemoveAll(x => x.isPayed);
         }
     }
 }
