@@ -48,5 +48,14 @@ namespace Viador.Game
         {
             _turnManager.OnAttacked();
         }
+
+        public void OnPurchaseActionState(Component caller, object payload)
+        {
+            Debug.Log($"Bought Action: {(int)payload}");
+            if (payload is int)
+            {
+                _turnManager.OnPurchaseActionState((int)payload);
+            }
+        }
     }
 }

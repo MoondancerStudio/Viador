@@ -80,5 +80,18 @@ namespace Viador.Game
             Debug.Log("Action points after attack:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
+
+        public void OnPurchaseActionState(int cost)
+        {
+            if (_currentTurn < 0)
+            {
+                throw new InvalidOperationException("Cannot purchase when there is no action point");
+            }
+
+            _actionPoints -= cost;
+
+            Debug.Log("Action points after purchase feat:" + _actionPoints);
+            GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
+        }
     }
 }

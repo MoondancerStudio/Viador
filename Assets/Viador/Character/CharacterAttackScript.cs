@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Assets.Viador.Action;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Viador.Action;
 using Viador.Events;
 using Viador.Game;
 using Viador.GameMechanics;
@@ -17,11 +20,15 @@ namespace Viador.Character
 
         public CharacterData characterData;
 
+        private IActionStateProvider _actionStateProvider;
+
         private CombatLogic _combatLogic = new();
 
         void Awake()
         {
             _includeLayer = LayerMask.GetMask("AttackHighlight");
+            _actionStateProvider = new ActionStateProvider();
+            _actionStateProvider.addNewActionState(new Feats("Harci laz", 3, 2));
         }
 
         void Start()
@@ -37,6 +44,7 @@ namespace Viador.Character
             {
                 throw new NullReferenceException("No Character data found");
             }
+
         }
 
         /**
@@ -62,7 +70,28 @@ namespace Viador.Character
                 
                 // Trigger action point update
                 GameEventProvider.Get(GameEvents.CharacterAttacked).Trigger(this, null);
+            }
+        }
 
+        // Executing attack
+        public void OnPurchaseActionState(Component sender, object actionState)
+        {
+            if (!TurnManager._currentPlayer.Equals(name))
+                return;
+
+            if (_actionStateProvider.isActionStateListEmpty())
+            {
+                Debug.Log("CAN NOT BUY ACTION STATE!");
+            } 
+            else
+            {
+                if (actionState is Feats)
+                {
+                    Feats feats = (Feats)actionState;
+                    Debug.Log($"Get Action state: {feats.name} with bonus attack value {feats.actionValue} costs {feats.cost}");
+                    _actionStateProvider.Execute(feats.name);
+                    GameEventProvider.Get(GameEvents.OnUpdatePurchasedActionState).Trigger(this, feats.cost);
+                }
             }
         }
         
@@ -73,7 +102,7 @@ namespace Viador.Character
             {
                 int baseDefenseValue = int.Parse(baseDefenseValueRaw.ToString());
 
-                AttackResult attackResult = _combatLogic.CalculateAttack(_combatLogic.CalculateAttackValue(characterData), baseDefenseValue, new Dice());
+                AttackResult attackResult = _combatLogic.CalculateAttack(_combatLogic.CalculateAttackValue(characterData), baseDefenseValue, new Dice(), _actionStateProvider);
 
                 ShowAttackResult(attackResult);
 
