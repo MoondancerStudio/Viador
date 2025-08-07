@@ -29,6 +29,8 @@ namespace Viador.Character
             _includeLayer = LayerMask.GetMask("AttackHighlight");
             _actionStateProvider = new ActionStateProvider();
             _actionStateProvider.addNewActionState(new Feats("Harci laz", 3, 2));
+            _actionStateProvider.addNewActionState(new Feats("Piszkos Csel", 3, 1));
+            _actionStateProvider.addNewActionState(new Feats("Futas", 2, 1));
         }
 
         void Start()
@@ -45,6 +47,13 @@ namespace Viador.Character
                 throw new NullReferenceException("No Character data found");
             }
 
+        }
+
+        public void OnRunFeatSelectedEvent()
+        { 
+            Debug.Log($"Run action state On");
+
+            GameEventProvider.Get(GameEvents.OnRunFeatHighLight).Trigger(this, transform.position);
         }
 
         /**
@@ -73,10 +82,12 @@ namespace Viador.Character
             }
         }
 
-        // Executing attack
+         /**
+          * Purchase feat
+          */
         public void OnPurchaseActionState(Component sender, object actionState)
         {
-            if (!TurnManager._currentPlayer.Equals(name))
+            if (TurnManager._currentPlayer != name)
                 return;
 
             if (_actionStateProvider.isActionStateListEmpty())
@@ -85,12 +96,27 @@ namespace Viador.Character
             } 
             else
             {
-                if (actionState is Feats)
+                if (actionState is Feats feats)
                 {
-                    Feats feats = (Feats)actionState;
+                    if (!_actionStateProvider.hasFeat(feats))
+                    {
+                        Debug.Log("Feat doest not exist!");
+                        return;
+                    }
+
                     Debug.Log($"Get Action state: {feats.name} with bonus attack value {feats.actionValue} costs {feats.cost}");
+                    
+                    if (!TurnManager.isEnoughActionPointsForPurchase(feats.cost))
+                        return;
+
                     _actionStateProvider.Execute(feats.name);
                     GameEventProvider.Get(GameEvents.OnUpdatePurchasedActionState).Trigger(this, feats.cost);
+
+                    if (feats.name.Equals("Futas"))
+                    {
+                        OnRunFeatSelectedEvent();
+                    }
+                    _actionStateProvider.removeAllActivatedActionStates();
                 }
             }
         }
@@ -131,7 +157,7 @@ namespace Viador.Character
 
         public void OnCharacterDefensed(Component sender, object rawDamageRaw)
         {
-            if (sender.name.Equals(name))
+            if (sender.name == name)
             {
                 int rawDamage = int.Parse(rawDamageRaw.ToString());
                 int damage = _combatLogic.HandleDamage(rawDamage, characterData.armor);
@@ -174,7 +200,7 @@ namespace Viador.Character
             if (characterData.health <= 0)
             {
                 characterData.health = 0;
-                GameEventProvider.Get(GameEvents.GameOver).Trigger(this, null);
+                                                                                     GameEventProvider.Get(GameEvents.GameOver).Trigger(this, null);
             }
         }
     }

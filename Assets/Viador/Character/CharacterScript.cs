@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using Viador.Events;
-using Viador.Game;
+
 
 namespace Viador.Character
 {

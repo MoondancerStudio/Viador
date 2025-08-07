@@ -1,5 +1,6 @@
+
+using UnityEngine;
 using Assets.Viador.Action;
-using Meryel.UnityCodeAssist.YamlDotNet.Core.Tokens;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,7 @@ namespace Viador.Action
         public bool isActionStateListEmpty();
 
         public void removeAllActivatedActionStates();
+        public bool hasFeat(Feats feat);
     }
 
     public class ActionStateProvider : IActionStateProvider
@@ -27,8 +29,14 @@ namespace Viador.Action
 
         public void Execute(string actionStateName)
         {
-            var f = feats.Find(x => x.name.Equals(actionStateName));
-            f.buyActionState();
+            var f = feats.Find(x => x.name == actionStateName);
+
+
+            if (f != null)
+            {
+                Debug.Log("feat is: " + f.name);
+                f.buyActionState();
+            }
         }
 
         public bool isActionStateListEmpty()
@@ -54,6 +62,11 @@ namespace Viador.Action
         public void removeAllActivatedActionStates()
         {
             feats.RemoveAll(x => x.isPayed);
+        }
+
+        public bool hasFeat(Feats feat)
+        {
+            return feats.Any(f => f.name == feat.name);
         }
     }
 }

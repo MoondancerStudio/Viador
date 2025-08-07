@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Viador.Events;
@@ -11,12 +12,12 @@ namespace Viador.Map
     {
         private static readonly Vector3 RectangleGridOffset = new(0.5f, 0.5f, 0);
         private static readonly Vector3 IsometricGridOffset = new(0, 0.25f, 0);
+     
         public IUnityService UnityService; // Public for testing
         
         [SerializeField] GameEvent selectMoveEvent;
         [SerializeField] private int threshold;
         
-
         private TilemapCollider2D _tilemapCollider;
         private Grid _grid;
         
@@ -34,6 +35,21 @@ namespace Viador.Map
             _tilemapCollider.isTrigger = true;
         }
 
+        private Vector3 getDelta(Grid grid)
+        {
+            GridLayout.CellLayout cellLayout = grid.cellLayout;
+            Vector3 delta = Vector3.zero;
+            if (cellLayout == GridLayout.CellLayout.Rectangle)
+            {
+                delta = RectangleGridOffset;
+            }
+            else if (cellLayout == GridLayout.CellLayout.Isometric)
+            {
+                delta = IsometricGridOffset;
+            }
+            return delta;
+        }
+
         public void OnMouseDown()
         {
             Vector2 mousePos = UnityService.GetMousePosition();
@@ -47,18 +63,8 @@ namespace Viador.Map
                 Debug.Log("No overlapping tile, no trigger");
                 return;
             }
-            
-            GridLayout.CellLayout cellLayout = _grid.cellLayout;
-            Vector3 delta = Vector3.zero;
-            if (cellLayout == GridLayout.CellLayout.Rectangle)
-            {
-                delta = RectangleGridOffset;
-            } else if (cellLayout == GridLayout.CellLayout.Isometric)
-            {
-                delta = IsometricGridOffset;
-            }
 
-            selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + delta);       
+            selectMoveEvent.Trigger(this, _grid.CellToWorld(tilePos) + getDelta(_grid));       
         }
         
         public void OnActionPointsUpdated(Component sender, object actionPoints)

@@ -1,7 +1,5 @@
-using Assets.Viador.Action;
-using System.Collections.Generic;
 using UnityEngine;
-using Viador.Action;
+
 
 namespace Viador.Character
 {

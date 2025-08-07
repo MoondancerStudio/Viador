@@ -11,7 +11,7 @@ namespace Viador.Game
         private readonly List<string> _players;
         
         private int _currentTurn;
-        private int _actionPoints;
+        private static int _actionPoints;
 
         public static string _currentPlayer;  
 
@@ -92,6 +92,12 @@ namespace Viador.Game
 
             Debug.Log("Action points after purchase feat:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
+        }
+
+        public static bool isEnoughActionPointsForPurchase(int cost)
+        {
+            Debug.Log($"Action ponints {_actionPoints} - cost {cost} = {_actionPoints - cost}");
+            return _actionPoints - cost >= 0;
         }
     }
 }

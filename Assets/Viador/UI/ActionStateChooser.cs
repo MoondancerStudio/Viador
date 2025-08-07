@@ -8,11 +8,14 @@ namespace Viador.UI
 {
     public class ActionStateChooser : MonoBehaviour
     {
-        public int cost = 2;
+        [SerializeField] public new string name;
+        [SerializeField] public int cost;
+        [SerializeField] public int value;
 
         public void OnActionStateClicked()
         {
-            GameEventProvider.Get(GameEvents.OnPurchaseActionState).Trigger(this, new Feats(name, 3, cost));
+            GameEventProvider.Get(GameEvents.OnPurchaseActionState).Trigger(this, new Feats(name, value, cost));
+            
         }
     }
 }

@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
-using Viador.Character;
-using Viador.Game;
+
 
 namespace Viador.Map
 {
@@ -69,6 +65,29 @@ namespace Viador.Map
             Debug.Log("OnMouseDown");
         }
 
+        public void OnMoveActionStateHighLight(Component sender, object characterPositionWithOffest)
+        {
+            int range = 2;
+
+            if(characterPositionWithOffest is Vector3 pos) { 
+
+                Vector3Int charTilePos = _MovehighlightTilemap.WorldToCell(pos);
+
+                for (int x = -range; x <= range; x+=2)
+                {
+                    for (int y = -range; y <= range; y+=2)
+                    {
+                        if (x == 0 && y == 0)
+                            continue;
+
+                        Vector3Int offset = new Vector3Int(x, y, 0);
+                        SetTile(charTilePos + offset, attackHighlightTile);
+                    }
+                }            
+            }
+        }
+
+
         public void HighlightMoveOptions(Vector3 characterPosition)
         {
             Debug.Log("Grid: HighlightMoveOptions");
@@ -93,7 +112,6 @@ namespace Viador.Map
         private void SetTile(Vector3Int tileCoordinate, Tile tile)
         {
             Vector2 tileWorldPosition = _grid.GetCellCenterWorld(tileCoordinate);
-
             if (IsOnBoard(tileCoordinate))
             {
                 if (!IsBlocked(tileCoordinate))
