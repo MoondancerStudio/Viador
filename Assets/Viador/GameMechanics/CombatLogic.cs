@@ -8,7 +8,7 @@ namespace Viador.GameMechanics
     {
         public static bool IsAttackBegin = false;
 
-        public AttackResult CalculateAttack(int attackValue, int defenseValue, Dice dice, IActionStateProvider actionStateProvider = null)
+        public AttackResult CalculateAttack(int attackValue, int defenseValue, Dice dice, IActionStateProvider actionStateProvider)
         {
             AttackResult result;
             var attackRoll = dice.Roll();
@@ -17,6 +17,8 @@ namespace Viador.GameMechanics
 
             // Calculate if there is any purchased feat
             attackValue += actionStateProvider.getActionStateAttack();
+
+            defenseValue += actionStateProvider.getActionStateDefense();
 
             Debug.Log($"Attack value after Action state {attackValue}");
 
@@ -32,7 +34,7 @@ namespace Viador.GameMechanics
             }
 
             //Clear the content of the list, where payment is occured
-            actionStateProvider.removeAllActivatedActionStates();
+           // actionStateProvider.removeAllActivatedActionStates();
 
             return result;
         }

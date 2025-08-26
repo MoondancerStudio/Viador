@@ -48,6 +48,15 @@ namespace Viador.Game
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
 
+        public void CheckIsEnoughActionPoints(int cost)
+        {
+            if (_actionPoints - cost < 0)
+            {
+                throw new InvalidOperationException("Cannot purchase because no enough action points left");
+            }
+            _actionPoints -= cost;
+        }
+
         public void OnMoved()
         {
             if (_currentTurn < 0)
@@ -55,13 +64,13 @@ namespace Viador.Game
                 throw new InvalidOperationException("Cannot move when there is no action point");
             }
 
-            _actionPoints -= 1;
+            CheckIsEnoughActionPoints(1);
 
             // If the attack is on-going, then it costs 2 to move away, otherwise 1
             if (CombatLogic.IsAttackBegin)
             {
                 CombatLogic.IsAttackBegin = false;
-                _actionPoints -= 2;
+                CheckIsEnoughActionPoints(2);
             }
 
             Debug.Log("Action points after move:" + _actionPoints);
@@ -75,8 +84,8 @@ namespace Viador.Game
                 throw new InvalidOperationException("Cannot attack when there is no action point");
             }
 
-            _actionPoints -= 2;
-       
+            CheckIsEnoughActionPoints(2);
+
             Debug.Log("Action points after attack:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
@@ -88,7 +97,7 @@ namespace Viador.Game
                 throw new InvalidOperationException("Cannot purchase when there is no action point");
             }
 
-            _actionPoints -= cost;
+            CheckIsEnoughActionPoints(cost);
 
             Debug.Log("Action points after purchase feat:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);

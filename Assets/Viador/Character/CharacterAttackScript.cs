@@ -28,9 +28,10 @@ namespace Viador.Character
         {
             _includeLayer = LayerMask.GetMask("AttackHighlight");
             _actionStateProvider = new ActionStateProvider();
-            _actionStateProvider.addNewActionState(new Feats("Harci laz", 3, 2));
-            _actionStateProvider.addNewActionState(new Feats("Piszkos Csel", 3, 1));
-            _actionStateProvider.addNewActionState(new Feats("Futas", 2, 1));
+            _actionStateProvider.addNewActionState(new Feats("Harci Laz", 3, 2, FeatType.Attack));
+            _actionStateProvider.addNewActionState(new Feats("Piszkos Csel", 3, 1, FeatType.Attack));
+            _actionStateProvider.addNewActionState(new Feats("Futas", 2, 1, FeatType.Run));
+            _actionStateProvider.addNewActionState(new Feats("Kiteres", 2, 1, FeatType.Defense));
         }
 
         void Start()
@@ -104,6 +105,12 @@ namespace Viador.Character
                         return;
                     }
 
+                    if (_actionStateProvider.isFeatActivated(feats.name))
+                    {
+                        Debug.Log("Feat is already in use!");
+                        return;
+                    }
+
                     Debug.Log($"Get Action state: {feats.name} with bonus attack value {feats.actionValue} costs {feats.cost}");
                     
                     if (!TurnManager.isEnoughActionPointsForPurchase(feats.cost))
@@ -112,11 +119,11 @@ namespace Viador.Character
                     _actionStateProvider.Execute(feats.name);
                     GameEventProvider.Get(GameEvents.OnUpdatePurchasedActionState).Trigger(this, feats.cost);
 
-                    if (feats.name.Equals("Futas"))
+                    if (feats.featType == FeatType.Run)
                     {
                         OnRunFeatSelectedEvent();
                     }
-                    _actionStateProvider.removeAllActivatedActionStates();
+                   // _actionStateProvider.removeAllActivatedActionStates();
                 }
             }
         }
@@ -128,7 +135,10 @@ namespace Viador.Character
             {
                 int baseDefenseValue = int.Parse(baseDefenseValueRaw.ToString());
 
-                AttackResult attackResult = _combatLogic.CalculateAttack(_combatLogic.CalculateAttackValue(characterData), baseDefenseValue, new Dice(), _actionStateProvider);
+                AttackResult attackResult = _combatLogic.CalculateAttack(
+                    _combatLogic.CalculateAttackValue(characterData),
+                    baseDefenseValue, new Dice(), _actionStateProvider
+                );
 
                 ShowAttackResult(attackResult);
 

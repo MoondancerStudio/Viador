@@ -65,6 +65,7 @@ namespace Viador.Map
             Debug.Log("OnMouseDown");
         }
 
+        // this feat stands for move more than 1 cell
         public void OnMoveActionStateHighLight(Component sender, object characterPositionWithOffest)
         {
             int range = 2;
@@ -81,7 +82,7 @@ namespace Viador.Map
                             continue;
 
                         Vector3Int offset = new Vector3Int(x, y, 0);
-                        SetTile(charTilePos + offset, attackHighlightTile);
+                        SetTile(charTilePos + offset, highlightTile);
                     }
                 }            
             }

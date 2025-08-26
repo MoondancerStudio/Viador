@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Viador.Action;
 using Viador.GameMechanics;
 
 namespace Viador.Tests.EditMode
@@ -7,6 +8,7 @@ namespace Viador.Tests.EditMode
     public class CombatLogicTest
     {
         private CombatLogic _underTest = new();
+            IActionStateProvider actionStateProvider = new ActionStateProvider();
         
         [Test]
         public void CalculateAttackShouldReturnMiss()
@@ -15,9 +17,9 @@ namespace Viador.Tests.EditMode
             int attackValue = 10;
             int defenseValue = 20;
             Dice mockDice = new MockDice();
-            
+
             // WHEN
-            var actual = _underTest.CalculateAttack(attackValue, defenseValue, mockDice);
+            var actual = _underTest.CalculateAttack(attackValue, defenseValue, mockDice, actionStateProvider);
             
             // THEN
             Assert.IsNotNull(actual);
@@ -32,10 +34,10 @@ namespace Viador.Tests.EditMode
             int attackValue = 20;
             int defenseValue = 10;
             Dice mockDice = new MockDice();
-            
+
             // WHEN
-            var actual = _underTest.CalculateAttack(attackValue, defenseValue, mockDice);
-            
+            var actual = _underTest.CalculateAttack(attackValue, defenseValue, mockDice, actionStateProvider);
+
             // THEN
             Assert.IsNotNull(actual);
             Assert.AreEqual(true, actual.Success);

@@ -285,6 +285,7 @@ MonoBehaviour:
   name: Futas
   cost: 1
   value: 2
+  type: 2
 --- !u!114 &83827663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3908,6 +3909,7 @@ MonoBehaviour:
   name: Harci Laz
   cost: 2
   value: 3
+  type: 0
 --- !u!1 &1021673687
 GameObject:
   m_ObjectHideFlags: 0
@@ -5807,6 +5809,7 @@ MonoBehaviour:
   name: Piszkos Csel
   cost: 1
   value: 3
+  type: 0
 --- !u!114 &1806525859
 MonoBehaviour:
   m_ObjectHideFlags: 0

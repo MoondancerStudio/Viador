@@ -11,10 +11,11 @@ namespace Viador.UI
         [SerializeField] public new string name;
         [SerializeField] public int cost;
         [SerializeField] public int value;
+        [SerializeField] public FeatType type;
 
         public void OnActionStateClicked()
         {
-            GameEventProvider.Get(GameEvents.OnPurchaseActionState).Trigger(this, new Feats(name, value, cost));
+            GameEventProvider.Get(GameEvents.OnPurchaseActionState).Trigger(this, new Feats(name, value, cost, type));
             
         }
     }
