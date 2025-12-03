@@ -5,7 +5,6 @@ namespace Assets.Viador.Action
 {
     public enum FeatType
     {
-
         Attack,
         Defense,
         Run

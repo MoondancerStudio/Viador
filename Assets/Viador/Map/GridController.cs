@@ -68,15 +68,15 @@ namespace Viador.Map
         // this feat stands for move more than 1 cell
         public void OnMoveActionStateHighLight(Component sender, object characterPositionWithOffest)
         {
-            int range = 2;
+            const int RANGE_TO_MOVE = 2;
 
             if(characterPositionWithOffest is Vector3 pos) { 
 
                 Vector3Int charTilePos = _MovehighlightTilemap.WorldToCell(pos);
 
-                for (int x = -range; x <= range; x+=2)
+                for (int x = -RANGE_TO_MOVE; x <= RANGE_TO_MOVE; x+=2)
                 {
-                    for (int y = -range; y <= range; y+=2)
+                    for (int y = -RANGE_TO_MOVE; y <= RANGE_TO_MOVE; y+=2)
                     {
                         if (x == 0 && y == 0)
                             continue;

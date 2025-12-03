@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Quicchures
   m_EditorClassIdentifier: 
   name: Quicchures
-  icon: {fileID: -2135585597343286014, guid: e2a42418d841ce24ab0a090d84116c13, type: 3}
+  icon: {fileID: -2413806693520163455, guid: 4a3dba7bda5ee614a9771adc38d1fb08, type: 3}
   image: {fileID: 0}
   description: "Quicchures, azaz \u201Egy\xF4zedelmes\u201D: a toro- ni j\xE1t\xE9kok
     gladi\xE1torainak alapt\xEDpusa. K\xFCz- d\xF4st\xEDlusuk, fegyver-\xF6ssze\xE1ll\xEDt\xE1suk

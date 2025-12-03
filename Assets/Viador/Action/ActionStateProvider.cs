@@ -13,10 +13,8 @@ namespace Viador.Action
         public int getActionStateDefense();
         public int getActionStateAttack();
         public bool isActionStateListEmpty();
-
         public void removeAllActivatedActionStates();
         public bool hasFeat(Feats feat);
-
         public bool isFeatActivated(string feat);
     }
 
