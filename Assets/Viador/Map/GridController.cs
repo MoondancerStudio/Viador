@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Viador.Game;
 
 
 namespace Viador.Map
@@ -62,7 +63,7 @@ namespace Viador.Map
 
         private void OnMouseDown()
         {
-            Debug.Log("OnMouseDown");
+            GameLogger.Log(LoggerType.EVENTS,"OnMouseDown");
         }
 
         // this feat stands for move more than 1 cell
@@ -91,14 +92,14 @@ namespace Viador.Map
 
         public void HighlightMoveOptions(Vector3 characterPosition)
         {
-            Debug.Log("Grid: HighlightMoveOptions");
+            GameLogger.Log(LoggerType.MOVE, "Grid: HighlightMoveOptions");
             Vector3Int characterGridPosition = _grid.WorldToCell(characterPosition);
             SetPerimeterTiles(characterGridPosition, highlightTile);
         }
 
         private void SetPerimeterTiles(Vector3Int charTilePos, Tile highlightTile)
         {
-            Debug.Log($"tile original pos {_grid.CellToWorld(charTilePos)}");
+            GameLogger.Log(LoggerType.MOVE,$"tile original pos {_grid.CellToWorld(charTilePos)}");
 
             SetTile(charTilePos + Vector3Int.up + Vector3Int.left, highlightTile);
             SetTile(charTilePos + Vector3Int.up, highlightTile);
@@ -123,7 +124,7 @@ namespace Viador.Map
                 {
                     if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, _includeLayer) is Collider2D character)
                     {
-                        Debug.Log($"Character name: {character.name} with pos: {character.transform.position}");
+                        GameLogger.Log(LoggerType.MOVE,$"Character name: {character.name} with pos: {character.transform.position}");
                         _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
                     }
                 }
@@ -151,7 +152,7 @@ namespace Viador.Map
         {
             Vector3Int oldGridPosition = _grid.WorldToCell(characterPosition);
             Vector3Int newGridPosition = _grid.WorldToCell(newPosition);
-            Debug.Log($"Grid: MoveCharacterPositionHighlight {oldGridPosition}; {newGridPosition}");
+            GameLogger.Log(LoggerType.MOVE,$"Grid: MoveCharacterPositionHighlight {oldGridPosition}; {newGridPosition}");
             
             _obstacleTilemap.SetTile(oldGridPosition, null);
             Tile tile = ScriptableObject.CreateInstance<Tile>();

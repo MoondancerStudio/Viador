@@ -73,7 +73,7 @@ namespace Viador.Game
                 CheckIsEnoughActionPoints(2);
             }
 
-            Debug.Log("Action points after move:" + _actionPoints);
+            GameLogger.Log(LoggerType.GAME_INFO,"Action points after move:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
 
@@ -86,7 +86,7 @@ namespace Viador.Game
 
             CheckIsEnoughActionPoints(2);
 
-            Debug.Log("Action points after attack:" + _actionPoints);
+            GameLogger.Log(LoggerType.GAME_INFO,"Action points after attack:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
 
@@ -99,13 +99,13 @@ namespace Viador.Game
 
             CheckIsEnoughActionPoints(cost);
 
-            Debug.Log("Action points after purchase feat:" + _actionPoints);
+            GameLogger.Log(LoggerType.GAME_INFO,"Action points after purchase feat:" + _actionPoints);
             GameEventProvider.Get(GameEvents.ActionPointsUpdated).Trigger(null, _actionPoints);
         }
 
         public static bool isEnoughActionPointsForPurchase(int cost)
         {
-            Debug.Log($"Action ponints {_actionPoints} - cost {cost} = {_actionPoints - cost}");
+            GameLogger.Log(LoggerType.GAME_INFO,$"Action ponints {_actionPoints} - cost {cost} = {_actionPoints - cost}");
             return _actionPoints - cost >= 0;
         }
     }

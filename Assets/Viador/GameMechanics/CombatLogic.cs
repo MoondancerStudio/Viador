@@ -1,6 +1,7 @@
 using UnityEngine;
 using Viador.Action;
 using Viador.Character;
+using Viador.Game;
 
 namespace Viador.GameMechanics
 {
@@ -13,14 +14,14 @@ namespace Viador.GameMechanics
             AttackResult result;
             var attackRoll = dice.Roll();
             var defenseRoll = dice.Roll();
-            Debug.Log($"Attack calculation: {attackValue + attackRoll} ({attackValue} + {attackRoll}) vs {defenseValue + defenseRoll} ({defenseValue} + {defenseRoll})");
+            GameLogger.Log(LoggerType.COMBAT, $"Attack calculation: {attackValue + attackRoll} ({attackValue} + {attackRoll}) vs {defenseValue + defenseRoll} ({defenseValue} + {defenseRoll})");
 
             // Calculate if there is any purchased feat
             attackValue += actionStateProvider.getActionStateAttack();
 
             defenseValue += actionStateProvider.getActionStateDefense();
 
-            Debug.Log($"Attack value after Action state {attackValue}");
+            GameLogger.Log(LoggerType.COMBAT, $"Attack value after Action state {attackValue}");
 
             int effectiveAttack = (attackValue + attackRoll) - (defenseValue + defenseRoll);
 
@@ -43,7 +44,7 @@ namespace Viador.GameMechanics
         {
             var calculatedDamage = rawDamage - armor;
             var damage = calculatedDamage < 0 ? 0 : calculatedDamage;
-            Debug.Log($"Damage handling: {damage} ({rawDamage} - {armor})");
+            GameLogger.Log(LoggerType.COMBAT, $"Damage handling: {damage} ({rawDamage} - {armor})");
             return damage;
         }
 

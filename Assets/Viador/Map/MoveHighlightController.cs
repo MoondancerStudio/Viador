@@ -3,6 +3,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Viador.Events;
+using Viador.Game;
 using Viador.Util;
 
 namespace Viador.Map
@@ -56,11 +57,11 @@ namespace Viador.Map
             Vector3 worldPos = UnityService.GetMainCamera().ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
             Vector3Int tilePos = _grid.WorldToCell(worldPos);
-            Debug.Log($"Click on {mousePos}|{worldPos}|{tilePos}");
+            GameLogger.Log(LoggerType.GAME_INFO,$"Click on {mousePos}|{worldPos}|{tilePos}");
 
             if (!_tilemapCollider.OverlapPoint(worldPos))
             {
-                Debug.Log("No overlapping tile, no trigger");
+                GameLogger.Log(LoggerType.EVENTS,"No overlapping tile, no trigger");
                 return;
             }
 
@@ -69,7 +70,7 @@ namespace Viador.Map
         
         public void OnActionPointsUpdated(Component sender, object actionPoints)
         {
-            Debug.Log("ActionPointsUpdated: " + actionPoints);
+            GameLogger.Log(LoggerType.ACTION_POINT,"ActionPointsUpdated: " + actionPoints);
             bool haveEnoughActionPoints = threshold <= (int) actionPoints;
             EnableTilemapInteractions(haveEnoughActionPoints);
         }

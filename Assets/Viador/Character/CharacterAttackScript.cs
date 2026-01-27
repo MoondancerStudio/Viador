@@ -1,7 +1,6 @@
-﻿using Assets.Viador.Action;
+﻿using UnityEngine;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
+using Assets.Viador.Action;
 using Viador.Action;
 using Viador.Events;
 using Viador.Game;
@@ -52,7 +51,7 @@ namespace Viador.Character
 
         public void OnRunFeatSelectedEvent()
         { 
-            Debug.Log($"Run action state On");
+            GameLogger.Log(LoggerType.ATTACK,$"Run action state On");
 
             GameEventProvider.Get(GameEvents.OnRunFeatHighLight).Trigger(this, transform.position);
         }
@@ -62,10 +61,11 @@ namespace Viador.Character
          */
         private void OnMouseDown()
         {
-            Debug.Log($"Current player is: {TurnManager._currentPlayer}");
+            GameLogger.Log(LoggerType.ATTACK,$"Current player is: {TurnManager._currentPlayer}");
             if (Physics2D.OverlapBox(transform.position, sizeOfBoxCollider, 0, _includeLayer))
             {
-                Debug.Log($"Start attack on {name}");
+
+                GameLogger.Log(LoggerType.ATTACK,LoggerType.ATTACK, $"[{TurnManager._currentPlayer}] started to attack");
 
                 _gridController.ResetHighlight();
 
@@ -93,7 +93,7 @@ namespace Viador.Character
 
             if (_actionStateProvider.isActionStateListEmpty())
             {
-                Debug.Log("CAN NOT BUY ACTION STATE!");
+                GameLogger.Log(LoggerType.ATTACK,"CAN NOT BUY ACTION STATE!");
             } 
             else
             {
@@ -101,17 +101,17 @@ namespace Viador.Character
                 {
                     if (!_actionStateProvider.hasFeat(feats))
                     {
-                        Debug.Log("Feat doest not exist!");
+                        GameLogger.Log(LoggerType.ATTACK,"Feat doest not exist!");
                         return;
                     }
 
                     if (_actionStateProvider.isFeatActivated(feats.name))
                     {
-                        Debug.Log("Feat is already in use!");
+                        GameLogger.Log(LoggerType.ATTACK,"Feat is already in use!");
                         return;
                     }
 
-                    Debug.Log($"Get Action state: {feats.name} with bonus attack value {feats.actionValue} costs {feats.cost}");
+                    GameLogger.Log(LoggerType.ATTACK,$"Get Action state: {feats.name} with bonus attack value {feats.actionValue} costs {feats.cost}");
                     
                     if (!TurnManager.isEnoughActionPointsForPurchase(feats.cost))
                         return;
@@ -156,12 +156,12 @@ namespace Viador.Character
         {
             if (attackResult.Success)
             {
-                Debug.Log($"{name} attacked successfully with a raw damage of {attackResult.Damage}");
+                GameLogger.Log(LoggerType.ATTACK,$"{name} attacked successfully with a raw damage of {attackResult.Damage}");
                 GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, attackResult.Damage);
             }
             else
             {
-                Debug.Log($"{name} missed the attack");
+                GameLogger.Log(LoggerType.ATTACK,$"{name} missed the attack");
             }
         }
 
@@ -172,14 +172,14 @@ namespace Viador.Character
                 int rawDamage = int.Parse(rawDamageRaw.ToString());
                 int damage = _combatLogic.HandleDamage(rawDamage, characterData.armor);
                 
-                Debug.Log($"{name} received {damage} effective damage");
-                Debug.Log($"{name} has {characterData.health} health");
+                GameLogger.Log(LoggerType.ATTACK,$"{name} received {damage} effective damage");
+                GameLogger.Log(LoggerType.ATTACK,$"{name} has {characterData.health} health");
 
                 // Update hp
                 var newHealth = characterData.health - damage;
                 characterData.health = newHealth;
 
-                Debug.Log($"{name} new health {characterData.health}");
+                GameLogger.Log(LoggerType.ATTACK,$"{name} new health {characterData.health}");
 
                 GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, $"Hit (-{damage} hp)");
 
@@ -190,7 +190,7 @@ namespace Viador.Character
 
         private void UpdateHpHighlight()
         {
-            Debug.Log($"Health {characterData.health}");
+            GameLogger.Log(LoggerType.ATTACK,$"Health {characterData.health}");
             string eventToTrigger;
                     
             if (name == "Dracon")

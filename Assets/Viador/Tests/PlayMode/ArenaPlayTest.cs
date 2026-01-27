@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Viador.Character;
+using Viador.Game;
 using Viador.Map;
 using Viador.Tests.PlayMode.Mocks;
 using Assert = UnityEngine.Assertions.Assert;
@@ -165,7 +166,7 @@ namespace Viador.Tests.PlayMode
             // GIVEN
             var camera = Camera.main;
             yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[0]));
-            Debug.Log($"Test Clicked {playerMoves[0]}");
+            GameLogger.Log(LoggerType.EVENTS,$"Test Clicked {playerMoves[0]}");
             yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[1]));
             yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[2]));
             yield return ArenaPageObject.Click(ToScreenProportionate(playerMoves[3]));

@@ -3,6 +3,7 @@ using UnityEngine;
 using Assets.Viador.Action;
 using System.Collections.Generic;
 using System.Linq;
+using Viador.Game;
 
 namespace Viador.Action
 {
@@ -33,7 +34,7 @@ namespace Viador.Action
 
             if (f != null)
             {
-                Debug.Log("feat is: " + f.name + " payment:" + f.isPayed);
+                GameLogger.Log(LoggerType.FEATS,"feat is: " + f.name + " payment:" + f.isPayed);
                 f.buyActionState();
             }
         }
@@ -79,7 +80,7 @@ namespace Viador.Action
 
             if(f != null)
             {
-                Debug.Log("Feats payed: " + f.isPayed);
+                GameLogger.Log(LoggerType.FEATS,"Feats payed: " + f.isPayed);
                 return f.isPayed;
             }
             return true;

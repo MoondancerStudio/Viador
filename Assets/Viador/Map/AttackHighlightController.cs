@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 using Viador.Events;
+using Viador.Game;
 
 namespace Viador.Map
 {
@@ -22,7 +23,7 @@ namespace Viador.Map
 
         public void OnActionPointsUpdatedForAttack(Component sender, object actionPoints)
         {
-            Debug.Log("ActionPointsUpdated for attack: " + actionPoints);
+            GameLogger.Log(LoggerType.ACTION_POINT, "ActionPointsUpdated for attack: " + actionPoints);
             bool haveEnoughActionPoints = threshold <= (int)actionPoints;
             EnableTilemapInteractionsForAttack(haveEnoughActionPoints);
         }

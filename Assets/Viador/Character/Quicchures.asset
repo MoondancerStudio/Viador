@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Quicchures
   m_EditorClassIdentifier: 
   name: Quicchures
-  icon: {fileID: -2413806693520163455, guid: 4a3dba7bda5ee614a9771adc38d1fb08, type: 3}
-  image: {fileID: 0}
+  icon: {fileID: 3350928731199760325, guid: c2e5c691b65bc354ab4195fc14390b0e, type: 3}
+  image: {fileID: 3350928731199760325, guid: c2e5c691b65bc354ab4195fc14390b0e, type: 3}
   description: "Quicchures, azaz \u201Egy\xF4zedelmes\u201D: a toro- ni j\xE1t\xE9kok
     gladi\xE1torainak alapt\xEDpusa. K\xFCz- d\xF4st\xEDlusuk, fegyver-\xF6ssze\xE1ll\xEDt\xE1suk
     t\xF6bb ezer  \xE9ves m\xFAlttal b\xFCszk\xE9lkedhet \u2013 \xE9s nem v\xE9let-
@@ -22,6 +22,6 @@ MonoBehaviour:
   move: 5
   attack: 42
   defense: 36
-  health: 4
+  health: 0
   armor: 4
   armorStructure: 04000000040000000400000004000000

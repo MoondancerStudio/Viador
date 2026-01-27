@@ -4,6 +4,7 @@ using TMPro;
 using Unity.AutomatedQA;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Viador.Game;
 using Viador.Map;
 
 namespace Viador.Tests.PlayMode
@@ -52,7 +53,7 @@ namespace Viador.Tests.PlayMode
         public IEnumerator Click(Vector2 position)
         {
             yield return Driver.Perform.Click(position);
-            Debug.Log("Driver clicked");
+            GameLogger.Log(LoggerType.EVENTS,"Driver clicked");
             yield return Click();
         }
 
