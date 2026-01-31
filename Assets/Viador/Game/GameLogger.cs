@@ -22,6 +22,7 @@ namespace Viador.Game
     {
         public static void Log(LoggerType logType, params object[] args)
         {
+            // Message to be logged
             string msg = string.Join(" ", args.Select(a => a.ToString()));
 
             // By default need to print out the current game state to search log properly
@@ -29,7 +30,7 @@ namespace Viador.Game
             finalLog += $"[CURRENT PLAYER]: [{TurnManager._currentPlayer}]\n";
 
 
-            // If a logging is attack type, then it has different schema
+            // Each logging has different schema and structure to inform
             switch (logType)
             {
                 case LoggerType.ATTACK:
@@ -45,6 +46,7 @@ namespace Viador.Game
                     break;
 
             }
+
             finalLog += msg;
             Debug.Log(finalLog);
         }
