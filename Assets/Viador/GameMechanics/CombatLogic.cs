@@ -1,5 +1,7 @@
 using UnityEngine;
+using Viador.Action;
 using Viador.Character;
+using Viador.Game;
 
 namespace Viador.GameMechanics
 {
@@ -7,12 +9,19 @@ namespace Viador.GameMechanics
     {
         public static bool IsAttackBegin = false;
 
-        public AttackResult CalculateAttack(int attackValue, int defenseValue, Dice dice)
+        public AttackResult CalculateAttack(int attackValue, int defenseValue, Dice dice, IActionStateProvider actionStateProvider)
         {
             AttackResult result;
             var attackRoll = dice.Roll();
             var defenseRoll = dice.Roll();
-            Debug.Log($"Attack calculation: {attackValue + attackRoll} ({attackValue} + {attackRoll}) vs {defenseValue + defenseRoll} ({defenseValue} + {defenseRoll})");
+            GameLogger.Log(LoggerType.COMBAT, $"Attack calculation: {attackValue + attackRoll} ({attackValue} + {attackRoll}) vs {defenseValue + defenseRoll} ({defenseValue} + {defenseRoll})");
+
+            // Calculate if there is any purchased feat
+            attackValue += actionStateProvider.getActionStateAttack();
+
+            defenseValue += actionStateProvider.getActionStateDefense();
+
+            GameLogger.Log(LoggerType.COMBAT, $"Attack value after Action state {attackValue}");
 
             int effectiveAttack = (attackValue + attackRoll) - (defenseValue + defenseRoll);
 
@@ -25,6 +34,9 @@ namespace Viador.GameMechanics
                 result = new AttackResult(false, 0);
             }
 
+            //Clear the content of the list, where payment is occured
+           // actionStateProvider.removeAllActivatedActionStates();
+
             return result;
         }
 
@@ -32,7 +44,7 @@ namespace Viador.GameMechanics
         {
             var calculatedDamage = rawDamage - armor;
             var damage = calculatedDamage < 0 ? 0 : calculatedDamage;
-            Debug.Log($"Damage handling: {damage} ({rawDamage} - {armor})");
+            GameLogger.Log(LoggerType.COMBAT, $"Damage handling: {damage} ({rawDamage} - {armor})");
             return damage;
         }
 

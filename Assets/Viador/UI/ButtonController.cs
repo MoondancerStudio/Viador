@@ -1,4 +1,5 @@
 using UnityEngine;
+using Viador.Game;
 
 namespace Viador.UI
 {
@@ -8,7 +9,7 @@ namespace Viador.UI
 
         public void OnActionPointsUpdated(Component sender, object actionPoints)
         {
-            Debug.Log("ActionPointsUpdated: " + actionPoints);
+            GameLogger.Log(LoggerType.ACTION_POINT,"ActionPointsUpdated: " + actionPoints);
             if (threshold <= (int)actionPoints)
             {
                 this.gameObject.SetActive(true);

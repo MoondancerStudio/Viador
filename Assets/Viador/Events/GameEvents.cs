@@ -11,6 +11,10 @@ namespace Viador.Events
         public static readonly string RenderMoveOptions = "RenderMoveOptions";
         public static readonly string MoveSelected = "MoveSelected";
         public static readonly string CharacterChoosenToAttack = "CharacterChoosenToAttack";
+        public static readonly string OnActionTypeListShow= "OnActionTypeListShow";
+        public static readonly string OnPurchaseActionState = "OnPurchaseActionState";
+        public static readonly string OnUpdatePurchasedActionState = "OnUpdatePurchasedActionState";
+        public static readonly string OnRunFeatHighLight = "OnRunFeatHighLight";
         public static readonly string CharacterAttacked = "CharacterAttacked";
         public static readonly string CharacterDefensed= "CharacterDefensed";
         public static readonly string AttackResultUpdated = "AttackResultUpdated";

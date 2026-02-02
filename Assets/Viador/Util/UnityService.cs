@@ -12,7 +12,7 @@ namespace Viador.Util
 
         public GameObject FindGameObject(string name)
         {
-            return GameObject.Find("Grid");
+            return GameObject.Find(name);
         }
 
         public Vector3 GetMousePosition()

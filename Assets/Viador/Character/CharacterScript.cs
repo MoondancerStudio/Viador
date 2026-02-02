@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using Viador.Events;
-using Viador.Game;
+
 
 namespace Viador.Character
 {
@@ -13,9 +9,9 @@ namespace Viador.Character
 
         private void Awake()
         {
-            gameObject.name = characterData.name;
-            gameObject.GetComponent<SpriteRenderer>().sprite = characterData.icon;
-            gameObject.GetComponent<CharacterAttackScript>().characterData = characterData;
+            name = characterData.name;
+            GetComponent<SpriteRenderer>().sprite = characterData.icon;
+            GetComponent<CharacterAttackScript>().characterData = characterData;
         }
     }
 }

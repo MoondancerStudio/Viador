@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
-using Viador.Character;
 using Viador.Game;
+
 
 namespace Viador.Map
 {
@@ -66,19 +63,43 @@ namespace Viador.Map
 
         private void OnMouseDown()
         {
-            Debug.Log("OnMouseDown");
+            GameLogger.Log(LoggerType.EVENTS,"OnMouseDown");
         }
+
+        // this feat stands for move more than 1 cell
+        public void OnMoveActionStateHighLight(Component sender, object characterPositionWithOffest)
+        {
+            const int RANGE_TO_MOVE = 2;
+
+            if(characterPositionWithOffest is Vector3 pos) { 
+
+                Vector3Int charTilePos = _MovehighlightTilemap.WorldToCell(pos);
+
+                for (int x = -RANGE_TO_MOVE; x <= RANGE_TO_MOVE; x+=2)
+                {
+                    for (int y = -RANGE_TO_MOVE; y <= RANGE_TO_MOVE; y+=2)
+                    {
+                        if (x == 0 && y == 0)
+                            continue;
+
+                        Vector3Int offset = new Vector3Int(x, y, 0);
+                        SetTile(charTilePos + offset, highlightTile);
+                    }
+                }            
+            }
+        }
+
 
         public void HighlightMoveOptions(Vector3 characterPosition)
         {
-            Debug.Log("Grid: HighlightMoveOptions");
+            GameLogger.Log(LoggerType.MOVE, "Grid: HighlightMoveOptions");
             Vector3Int characterGridPosition = _grid.WorldToCell(characterPosition);
             SetPerimeterTiles(characterGridPosition, highlightTile);
         }
 
         private void SetPerimeterTiles(Vector3Int charTilePos, Tile highlightTile)
         {
-            Debug.Log($"tile original pos {_grid.CellToWorld(charTilePos)}");
+            GameLogger.Log(LoggerType.MOVE,$"tile original pos {_grid.CellToWorld(charTilePos)}");
 
             SetTile(charTilePos + Vector3Int.up + Vector3Int.left, highlightTile);
             SetTile(charTilePos + Vector3Int.up, highlightTile);
@@ -93,7 +114,6 @@ namespace Viador.Map
         private void SetTile(Vector3Int tileCoordinate, Tile tile)
         {
             Vector2 tileWorldPosition = _grid.GetCellCenterWorld(tileCoordinate);
-
             if (IsOnBoard(tileCoordinate))
             {
                 if (!IsBlocked(tileCoordinate))
@@ -104,7 +124,7 @@ namespace Viador.Map
                 {
                     if (Physics2D.OverlapBox(tileWorldPosition, sizeOfBoxCollider, 0, _includeLayer) is Collider2D character)
                     {
-                        Debug.Log($"Character name: {character.name} with pos: {character.transform.position}");
+                        GameLogger.Log(LoggerType.MOVE,$"Character name: {character.name} with pos: {character.transform.position}");
                         _AttackhighlightTilemap.SetTile(tileCoordinate, attackHighlightTile);
                     }
                 }
@@ -132,7 +152,7 @@ namespace Viador.Map
         {
             Vector3Int oldGridPosition = _grid.WorldToCell(characterPosition);
             Vector3Int newGridPosition = _grid.WorldToCell(newPosition);
-            Debug.Log($"Grid: MoveCharacterPositionHighlight {oldGridPosition}; {newGridPosition}");
+            GameLogger.Log(LoggerType.MOVE,$"Grid: MoveCharacterPositionHighlight {oldGridPosition}; {newGridPosition}");
             
             _obstacleTilemap.SetTile(oldGridPosition, null);
             Tile tile = ScriptableObject.CreateInstance<Tile>();

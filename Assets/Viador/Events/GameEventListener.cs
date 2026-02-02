@@ -12,10 +12,10 @@ namespace Viador.Events
 
         private void Awake()
         {
-            //Debug.Log($"[{gameObject.name}] awaken");
+            //GameLogger.Log(LoggerType.GAME_INFO,$"[{gameObject.name}] awaken");
             if (gameEvent is null && gameEventName is not null)
             {
-                //Debug.Log($"[{gameObject.name}] getting game event {gameEventName}");
+                //GameLogger.Log(LoggerType.GAME_INFO,$"[{gameObject.name}] getting game event {gameEventName}");
                 gameEvent = GameEventProvider.Get(gameEventName);
             }
         }
@@ -32,7 +32,7 @@ namespace Viador.Events
 
         public void OnEventTriggered(Component sender, object data)
         {
-            //Debug.Log($"[{sender?.name}] triggered [{gameEvent?.name}], handled in [{gameObject.name}]");
+            //GameLogger.Log(LoggerType.GAME_INFO,$"[{sender?.name}] triggered [{gameEvent?.name}], handled in [{gameObject.name}]");
             response.Invoke(sender, data);
         }
     }

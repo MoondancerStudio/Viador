@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Dracon
   m_EditorClassIdentifier: 
   name: Dracon
-  icon: {fileID: -712631045867808456, guid: 1edf64a24a4ba994bb8a3b22e161019a, type: 3}
-  image: {fileID: 0}
+  icon: {fileID: -4918130541580160798, guid: c0bf74979f4b2ab438b55c7e136ed4bc, type: 3}
+  image: {fileID: -4918130541580160798, guid: c0bf74979f4b2ab438b55c7e136ed4bc, type: 3}
   description: "A toroni gladi\xE1torok legnehezebb fegyverzet\xFB t\xEDpus\xE1nak
     neve Dracon, azaz \u201ES\xE1rk\xE1ny\u201D, egy\xE9rtelm\xFB c\xE9lz\xE1sk\xE9nt
     az \xF3id\xF4k roppant besti\xE1it ut\xE1nz\xF3 sebezhetetlens\xE9g\xFCkre \xE9s

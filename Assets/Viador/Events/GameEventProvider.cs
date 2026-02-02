@@ -12,7 +12,7 @@ namespace Viador.Events
             Init();
 
             GameEvent gameEvent = _gameEvents.TryGetValue(eventName, out var @event) ? @event : Create(eventName);
-            //Debug.Log($"GameEventProvider.Get => {gameEvent.name}");
+            //GameLogger.Log(LoggerType.GAME_INFO,$"GameEventProvider.Get => {gameEvent.name}");
             return gameEvent;
         }
 

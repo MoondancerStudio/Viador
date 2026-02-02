@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace Viador.Character
 {
     [CreateAssetMenu(menuName = "Character Data")]
