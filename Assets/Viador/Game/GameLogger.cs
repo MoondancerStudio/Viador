@@ -15,7 +15,8 @@ namespace Viador.Game
         TURN,
         GAME_LOOP,
         COMBAT,
-        ACTION_POINT
+        ACTION_POINT,
+        ANIMATION
     }
 
     public class GameLogger

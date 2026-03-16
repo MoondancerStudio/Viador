@@ -162,6 +162,7 @@ namespace Viador.Character
             else
             {
                 GameLogger.Log(LoggerType.ATTACK,$"{name} missed the attack");
+                GameEventProvider.Get(GameEvents.OnMissedAttack).Trigger(this, null);
             }
         }
 
@@ -210,7 +211,7 @@ namespace Viador.Character
             if (characterData.health <= 0)
             {
                 characterData.health = 0;
-                                                                                     GameEventProvider.Get(GameEvents.GameOver).Trigger(this, null);
+                GameEventProvider.Get(GameEvents.GameOver).Trigger(this, null);
             }
         }
     }

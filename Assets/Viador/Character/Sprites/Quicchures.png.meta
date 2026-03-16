@@ -224,7 +224,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Quicchures_0: 3350928731199760325
+      Quicchures_1: 4087018642084781886
+      Quicchures_2: -4926222345478317249
+      Quicchures_3: 1445443143530360447
+      Quicchures_4: -5668504786789418672
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
