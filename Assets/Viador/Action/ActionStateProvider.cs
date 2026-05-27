@@ -34,7 +34,7 @@ namespace Viador.Action
 
             if (f != null)
             {
-                GameLogger.Log(LoggerType.FEATS,"feat is: " + f.name + " payment:" + f.isPayed);
+                GameLogger.Log(LoggerType.FEATS,"feat is: " + f.name + "\n already payed:" + f.isPayed);
                 f.buyActionState();
             }
         }

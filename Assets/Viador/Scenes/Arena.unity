@@ -5756,7 +5756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEventName: OnMissedAttack
+  gameEventName: OnArmorDefensedAttack
   gameEvent: {fileID: 0}
   response:
     m_PersistentCalls:
@@ -5785,7 +5785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEventName: CharacterDefensed
+  gameEventName: OnSucessAttack
   gameEvent: {fileID: 0}
   response:
     m_PersistentCalls:
@@ -7317,9 +7317,9 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2981675541820229733}
-        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
-        m_MethodName: OnCharacterMoved
+      - m_Target: {fileID: 2981675541820229700}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAttackScript, Viador
+        m_MethodName: OnPurchaseActionState
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7463,7 +7463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEventName: CharacterDefensed
+  gameEventName: OnSucessAttack
   gameEvent: {fileID: 0}
   response:
     m_PersistentCalls:
@@ -7492,7 +7492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEventName: OnMissedAttack
+  gameEventName: OnArmorDefensedAttack
   gameEvent: {fileID: 0}
   response:
     m_PersistentCalls:

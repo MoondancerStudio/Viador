@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Viador.Action;
 using System;
-using Assets.Viador.Action;
+using UnityEngine;
 using Viador.Action;
 using Viador.Events;
 using Viador.Game;
@@ -140,29 +140,22 @@ namespace Viador.Character
                     baseDefenseValue, new Dice(), _actionStateProvider
                 );
 
-                ShowAttackResult(attackResult);
-
                 HandleAttackResult(sender, attackResult);
             }
-        }
-
-        private void ShowAttackResult(AttackResult attackResult)
-        {
-            var message = attackResult.Success ? "Hit" : "Miss";
-            GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, message);
         }
 
         private void HandleAttackResult(Component sender, AttackResult attackResult)
         {
             if (attackResult.Success)
             {
-                GameLogger.Log(LoggerType.ATTACK,$"{name} attacked successfully with a raw damage of {attackResult.Damage}");
+                GameLogger.Log(LoggerType.ATTACK, $"{name} attacked successfully with a raw damage of {attackResult.Damage}");
                 GameEventProvider.Get(GameEvents.CharacterDefensed).Trigger(sender, attackResult.Damage);
             }
             else
             {
-                GameLogger.Log(LoggerType.ATTACK,$"{name} missed the attack");
+                GameLogger.Log(LoggerType.ATTACK, $"{name} Missed the attack");
                 GameEventProvider.Get(GameEvents.OnMissedAttack).Trigger(this, null);
+                GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, "Miss");
             }
         }
 
@@ -171,18 +164,28 @@ namespace Viador.Character
             if (sender.name == name)
             {
                 int rawDamage = int.Parse(rawDamageRaw.ToString());
-                int damage = _combatLogic.HandleDamage(rawDamage, characterData.armor);
+                int defenseArmorDamaged = _combatLogic.HandleDamage(rawDamage, characterData.armor);
                 
-                GameLogger.Log(LoggerType.ATTACK,$"{name} received {damage} effective damage");
+                GameLogger.Log(LoggerType.ATTACK,$"{name} received {defenseArmorDamaged} effective damage");
                 GameLogger.Log(LoggerType.ATTACK,$"{name} has {characterData.health} health");
 
                 // Update hp
-                var newHealth = characterData.health - damage;
+                var newHealth = characterData.health - defenseArmorDamaged;
                 characterData.health = newHealth;
 
                 GameLogger.Log(LoggerType.ATTACK,$"{name} new health {characterData.health}");
 
-                GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, $"Hit (-{damage} hp)");
+                // Check if the defense was successfu
+                if (defenseArmorDamaged > 0)
+                {
+                    GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, $"Hit ({-defenseArmorDamaged} hp)");
+                    GameEventProvider.Get(GameEvents.OnSucessAttack).Trigger(this, null);
+                }
+                else
+                {
+                    GameEventProvider.Get(GameEvents.AttackResultUpdated).Trigger(this, "Defensed");
+                    GameEventProvider.Get(GameEvents.OnArmorDefensedAttack).Trigger(this, null);
+                }
 
                 UpdateHpHighlight();
                 HandleCharacterDeath();
