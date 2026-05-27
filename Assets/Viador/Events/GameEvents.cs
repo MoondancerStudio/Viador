@@ -18,10 +18,14 @@ namespace Viador.Events
         public static readonly string CharacterAttacked = "CharacterAttacked";
         public static readonly string CharacterDefensed= "CharacterDefensed";
         public static readonly string AttackResultUpdated = "AttackResultUpdated";
+        public static readonly string OnSucessAttack = "OnSucessAttack";
+        public static readonly string OnMissedAttack = "OnMissedAttack";
+        public static readonly string OnArmorDefensedAttack = "OnArmorDefensedAttack";
         public static readonly string UIStateUpdated = "UIStateUpdated";
         public static readonly string CharacterMoved = "CharacterMoved";
         public static readonly string StateUpdated = "StateUpdated";
         public static readonly string Player_1_HealthPointUpdated = "Player_1_HealthPointUpdated";
         public static readonly string Player_2_HealthPointUpdated = "Player_2_HealthPointUpdated";
+        public static readonly string AnimationStop = "AnimationStop";
     }
 }

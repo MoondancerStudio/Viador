@@ -13,9 +13,11 @@ namespace Viador.Character
         [SerializeField] private bool isSmoothTransitionActive;
         [SerializeField] private int threshold;
 
+        private float smoothSpeed = 5f;
         private bool _isEnabled = false;
-
         private Vector3 _targetPosition;
+        private bool reached;
+
 
         void Awake()
         {
@@ -38,17 +40,25 @@ namespace Viador.Character
 
         void Update()
         {
-            if (Vector3.Distance(gameObject.transform.position, _targetPosition) > 0.1f)
+            if (reached) return;
+   
+            if (isSmoothTransitionActive)
             {
-                if (isSmoothTransitionActive)
-                {
-                    gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, _targetPosition,
-                        Time.deltaTime * 10f);
-                }
-                else
-                {
-                    gameObject.transform.position = _targetPosition;
-                }
+                transform.position = Vector3.Lerp(
+                    transform.position,
+                    _targetPosition,
+                    smoothSpeed * Time.deltaTime
+);
+            }
+            else
+            {
+                gameObject.transform.position = _targetPosition;               
+            }
+            
+
+            if (Vector3.Distance(transform.position, _targetPosition) < 0.0001f)
+            {
+                reached = true;
             }
         }
 
@@ -67,6 +77,7 @@ namespace Viador.Character
         private void Move(Vector3 targetPosition)
         {
             _targetPosition = targetPosition;
+            reached = false;
             _gridController.ResetHighlight();
         }
 
@@ -81,7 +92,7 @@ namespace Viador.Character
 
             if (payload is string)
             {
-                if (payload.Equals(this.gameObject.name))
+                if (payload.Equals(gameObject.name))
                 {
                     _isEnabled = true;
                 }

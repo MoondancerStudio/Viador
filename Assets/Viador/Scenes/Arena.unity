@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 36889383}
   - component: {fileID: 36889382}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: GameOverPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.76862746, g: 0.6431373, b: 0.5176471, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: -255.92, y: -217.2, z: -261.57, w: -214.97}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5430,6 +5430,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8104779347467744383, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      propertyPath: isSmoothTransitionActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8284079944765758389, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -5440,11 +5444,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8985113336956937741, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.07
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8985113336956937741, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.07
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8985113336956937741, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5473,6 +5477,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1525549556}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525549565}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525549564}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525549563}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525549566}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525549567}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525549568}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525549569}
   m_SourcePrefab: {fileID: 100100000, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
 --- !u!4 &1525549523 stripped
 Transform:
@@ -5523,7 +5548,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 8, y: 8}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1525549538
 MonoBehaviour:
@@ -5617,6 +5642,186 @@ MonoBehaviour:
       - m_Target: {fileID: 1525549542}
         m_TargetAssemblyTypeName: Viador.Character.CharacterAttackScript, Viador
         m_MethodName: OnPurchaseActionState
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1525549563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: MoveSelected
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1525549564}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterMoved
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1525549564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c9ce0c110753e4181a4744a73084a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1525549565}
+--- !u!95 &1525549565
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d63c38ecd4840341b71f33e74c1e2fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1525549566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: CharacterAttacked
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1525549564}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterAttacked
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1525549567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: OnArmorDefensedAttack
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1525549564}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterDefensed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1525549568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: OnSucessAttack
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1525549564}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterDamaged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1525549569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732632111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: GameOver
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1525549564}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterDead
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6908,15 +7113,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8104779347467744383, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: isSmoothTransitionActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8985113336956937741, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.07
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8985113336956937741, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.07
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8985113336956937741, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6945,6 +7150,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2981675541820229731}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2981675541820229733}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2981675541820229732}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2981675541820229734}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2981675541820229748}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2981675541820229755}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2981675541820229756}
+    - targetCorrespondingSourceObject: {fileID: 5922068080051762936, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2981675541820229757}
   m_SourcePrefab: {fileID: 100100000, guid: 760ee81481f1da44db14f0800a6f27e3, type: 3}
 --- !u!4 &2981675541820229698 stripped
 Transform:
@@ -7072,7 +7298,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 8, y: 8}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &2981675541820229731
 MonoBehaviour:
@@ -7094,6 +7320,186 @@ MonoBehaviour:
       - m_Target: {fileID: 2981675541820229700}
         m_TargetAssemblyTypeName: Viador.Character.CharacterAttackScript, Viador
         m_MethodName: OnPurchaseActionState
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!95 &2981675541820229732
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d63c38ecd4840341b71f33e74c1e2fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2981675541820229733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c9ce0c110753e4181a4744a73084a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2981675541820229732}
+--- !u!114 &2981675541820229734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: MoveSelected
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2981675541820229733}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterMoved
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2981675541820229748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: CharacterAttacked
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2981675541820229733}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterAttacked
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2981675541820229755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: GameOver
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2981675541820229733}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterDead
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2981675541820229756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: OnSucessAttack
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2981675541820229733}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterDamaged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2981675541820229757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981675541820229699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abfac6993e14ec1bfd40ff376d8e7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventName: OnArmorDefensedAttack
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2981675541820229733}
+        m_TargetAssemblyTypeName: Viador.Character.CharacterAnimationScript, Viador
+        m_MethodName: OnCharacterDefensed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
